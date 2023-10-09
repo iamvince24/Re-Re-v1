@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* h1 {
+    @apply text-[36px]  text-colorText max-[450px]:text-[30px];
+  }
+  h2 {
+    @apply text-[30px]  text-colorText max-[450px]:text-[24px];
+  }
+  h3 {
+    @apply text-[24px]  text-colorText max-[450px]:text-[18px];
+  }
+  h4 {
+    @apply text-[18px]  text-colorText max-[450px]:text-[12px];
+  }
+  h5 {
+    @apply text-[12px]  text-colorText;
+  } */
+}
+
+@layer components {
+  .h1tag {
+    @apply text-[36px]  text-colorText max-[450px]:text-[30px];
+  }
+  .h2tag {
+    @apply text-[30px]  text-colorText max-[450px]:text-[24px];
+  }
+  .h3tag {
+    @apply text-[24px]  text-colorText max-[450px]:text-[18px];
+  }
+  .h4tag {
+    @apply text-[18px]  text-colorText max-[450px]:text-[12px];
+  }
+  /* .h44tag {
+    @apply text-[16px]  text-colorText max-[450px]:text-[12px];
+  } */
+  .h5tag {
+    @apply text-[14px]  text-colorText max-[450px]:text-[12px];
+  }
+
+  .inputform {
+    @apply h-[40px] w-4/5 pl-3 mt-[10px]  rounded placeholder:h5tag placeholder:text-gray placeholder:tracking-wider;
+  }
+  .inputform:hover {
+    @apply border border-colorText;
+  }
+  .inputform:focus {
+    @apply focus:outline-none focus:ring-0 border border-colorText;
+  }
+
+  .btn {
+    @apply h5tag font-medium h-[40px] w-4/5 rounded placeholder:text-sm bg-white;
+  }
+  .btn:hover {
+    @apply border border-colorText;
+  }
+  .btn:focus {
+    /* @apply focus:outline-none focus:ring-0 border border-colorText; */
+  }
+  .btn:active {
+    @apply active:bg-colorText active:bg-opacity-10;
+  }
+
+  .ganttTimePeriod {
+    @apply grid auto-cols-auto;
+  }
+
+  /* .my-custom-markdown {
+    @apply w-full;
+  } */
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* background-image: linear-gradient(45deg, #e7feda, #00d4ff); */
+  /* background-color: #e7feda; */
+  /*background: rgb(63, 212, 214);
+  background: linear-gradient(
+    0deg,
+    rgba(63, 212, 214, 1) 0%,
+    rgba(231, 164, 21, 1) 86%
+  );*/
+  /* height: 100vh;
+  /* border: 1px solid black; */
+  /*background: rgb(34, 193, 195, 1);*/
+
+  /*background: #22c1c3;*/
+  /*background: #3fd4d6;*/
+  background: #eeeeee;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+#alltimeline {
+  /*background: rgb(34, 193, 195, 1);*/
+  width: 97%;
+  height: 96%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 40px repeat(19, 1fr);
+  /*border: 1px solid black;*/
+}
+
+#timelinetitle {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+#timeline {
+  grid-column: 2/7;
+  grid-row: 1 / 21;
+}
+
+#dd {
+}
+
+#notebook {
+  grid-column: 1;
+  grid-row: 2 / 21;
+}
+
+#hh {
+  height: 3%;
+}
