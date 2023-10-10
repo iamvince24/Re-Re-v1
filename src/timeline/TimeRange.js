@@ -62,7 +62,7 @@ export default function TimeRange({ timeRange, setTimeRange }) {
             name="from-select-month"
             value={timeRange.fromSelectMonth}
             onChange={onChange}
-            className="h5tag w-[70px] px-[10px] py-[5px] h-[40px] h5tag rounded-md mr-2 bg-lightgray"
+            className="h5tag w-[70px] px-[10px] py-[5px] h-[40px] h5tag rounded-md mr-2 bg-lightgray appearance-none hover:border hover:border-colorText"
           >
             {monthsOptions}
           </select>
@@ -71,7 +71,7 @@ export default function TimeRange({ timeRange, setTimeRange }) {
             name="from-select-year"
             value={timeRange.fromSelectYear}
             onChange={onChange}
-            className="h5tag w-[80px] px-[10px] py-[5px] h-[40px] h5tag rounded-md bg-lightgray"
+            className="h5tag w-[80px] px-[10px] py-[5px] h-[40px] h5tag rounded-md bg-lightgray appearance-none hover:border hover:border-colorText"
           >
             {yearsOptions}
           </select>
@@ -87,7 +87,7 @@ export default function TimeRange({ timeRange, setTimeRange }) {
             name="to-select-month"
             value={timeRange.toSelectMonth}
             onChange={onChange}
-            className="h5tag w-[70px] px-[10px] py-[5px] h-[40px] h5tag rounded-md mr-2 bg-lightgray"
+            className="h5tag w-[70px] px-[10px] py-[5px] h-[40px] h5tag rounded-md mr-2 bg-lightgray  appearance-none hover:border hover:border-colorText"
           >
             {monthsOptions}
           </select>
@@ -96,7 +96,7 @@ export default function TimeRange({ timeRange, setTimeRange }) {
             name="to-select-year"
             value={timeRange.toSelectYear}
             onChange={onChange}
-            className="h5tag w-[80px] px-[10px] py-[5px] h-[40px] h5tag rounded-md bg-lightgray"
+            className="h5tag w-[80px] px-[10px] py-[5px] h-[40px] h5tag rounded-md bg-lightgray appearance-none hover:border hover:border-colorText"
           >
             {yearsOptions}
           </select>

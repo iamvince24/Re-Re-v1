@@ -56,9 +56,6 @@
   .btn:hover {
     @apply border border-colorText;
   }
-  .btn:focus {
-    /* @apply focus:outline-none focus:ring-0 border border-colorText; */
-  }
   .btn:active {
     @apply active:bg-colorText active:bg-opacity-10;
   }

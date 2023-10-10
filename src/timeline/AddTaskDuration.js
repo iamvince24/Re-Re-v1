@@ -1,7 +1,4 @@
 import { useState, useEffect } from "react";
-// import AddButton from "./AddButton";
-
-import "./AddTaskDuration.css";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setNobebookStartAndEndTime } from "../page/actions";
@@ -139,7 +136,7 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
             min="2022-01-01"
             max="2050-12-31"
             onChange={onChange}
-            className="w-[125px] px-[10px] py-[5px] h-[40px] h5tag rounded-md bg-lightgray"
+            className="w-[125px] px-[10px] py-[5px] h-[40px] h5tag rounded-md bg-lightgray hover:border hover:border-colorText"
           />
         </div>
         <div className="fieldset-container flex items-center w-[200px] ">
@@ -154,12 +151,12 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
             min="2022-01-01"
             max="2050-12-31"
             onChange={onChange}
-            className="w-[125px] px-[10px] py-[5px] h-[40px] h5tag rounded-md bg-lightgray"
+            className="w-[125px] px-[10px] py-[5px] h-[40px] h5tag rounded-md bg-lightgray  hover:border hover:border-colorText"
           />
         </div>
         <button
           type="submit"
-          className="btn w-[125px] bg-lightgray"
+          className="btn w-[125px] bg-lightgray "
           onChange={handleSubmit}
         >
           Set up

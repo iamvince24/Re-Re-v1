@@ -9,8 +9,6 @@ import {
 } from "../helpers/dateFunctions";
 import { months } from "../constants";
 
-import "./TimeTable.css";
-
 export default function TimeTable({
   timeRange,
   tasks,
@@ -45,9 +43,7 @@ export default function TimeTable({
     position: "absolute",
     height: "calc(33px - 1px)",
     zIndex: "1",
-    background:
-      // "linear-gradient(90deg, var(--color-primary-light) 0%, var(--color-primary-dark) 100%)",
-      "linear-gradient(90deg, #9ddcff 0%, #0195e4 100%)",
+    background: "linear-gradient(90deg, #9ddcff 0%, #0195e4 100%)",
     borderRadius: "5px",
     boxShadow: "3px 3px 3px rgba(0, 0, 0, 0.05)",
     cursor: "move",

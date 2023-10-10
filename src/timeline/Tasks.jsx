@@ -1,7 +1,5 @@
 import { useEffect, useRef } from "react";
 
-import "./Tasks.css";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 

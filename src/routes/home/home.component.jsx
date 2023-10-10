@@ -20,11 +20,6 @@ function Home() {
             before. Stay organized and in control with our user-friendly app,
             making note-taking a breeze.
           </p>
-          <h1 className="mt-[40px] h1tag">Recording and Reviewing</h1>
-          <h2 className="mt-[20px] h2tag">Recording and Reviewing</h2>
-          <h3 className="mt-[20px] h3tag">Recording and Reviewing</h3>
-          <h4 className="mt-[20px] h4tag">Recording and Reviewing</h4>
-          <h5 className="mt-[20px] h5tag">Recording and Reviewing</h5>
         </section>
       </main>
       <Footer />
