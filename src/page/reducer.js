@@ -1,5 +1,3 @@
-import A from "../text.file/sample_1.text";
-
 const notebookState = {
   notebookList: [
     {
