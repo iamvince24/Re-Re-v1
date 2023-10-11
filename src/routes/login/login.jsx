@@ -65,7 +65,7 @@ function Login() {
             <button className="btn" onClick={signInWithGoogle}>
               透過 Google 帳戶繼續進行操作
             </button>
-            <div className="mt-[20px]">
+            <div className="mt-[20px] hidden">
               <Link className="h5tag underline font-bold" to="/reset">
                 Forgot Password
               </Link>

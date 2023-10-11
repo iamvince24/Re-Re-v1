@@ -17,7 +17,7 @@ function Reset() {
 
   return (
     <Fragment>
-      <section className="flex justify-center w-screen mt-[50px]">
+      <section className="flex justify-center w-screen mt-[50px] hidden">
         <div className="flex justify-start flex-col relative text-center w-[500px] h-auto mt-[7vh] bg-white bg-opacity-50 rounded-xl max-[768px]:w-[375px] max-[450px]:w-auto m-[25px] max-[450px]:h-auto">
           <p className="h3tag font-bold mt-10">Let’s get started!</p>
           <p className="h5tag mt-[10px]">
