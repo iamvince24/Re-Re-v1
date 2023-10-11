@@ -1,17 +1,11 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { Fragment } from "react";
-import { useState } from "react";
-// import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-
-import { deleteSubNotebook } from "../page/actions";
-import { displayNumber } from "../page/actions";
-import { setSubNobebookTitle } from "../page/actions";
+import { deleteSubNotebook } from "../../../redux/actions";
+import { displayNumber } from "../../../redux/actions";
+import { setSubNobebookTitle } from "../../../redux/actions";
 
 function SubNotebook({ subNotebookName, NotebookId, subId }) {
-  // const notebookList = useSelector((state) => state.notebookList);
   const displayNumberList = useSelector((state) => state.notebookDisplaying);
 
   const dispatch = useDispatch();
@@ -46,7 +40,6 @@ function SubNotebook({ subNotebookName, NotebookId, subId }) {
   }
 
   function handleDisplayNumber() {
-    // console.log(NotebookId + 1, subId);
     dispatch(displayNumber(NotebookId + 1, subId));
   }
 

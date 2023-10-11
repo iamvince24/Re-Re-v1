@@ -1,25 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { client } from "../../../utils/fetchWrapper.js";
 
-import { useState, useEffect } from "react";
-import { client } from "../utils/fetchWrapper.js";
-
-import AddTaskDuration from "./AddTaskDuration";
-import AddTask from "./AddTask";
-import Grid from "./Grid";
-import Settings from "./Settings";
-import Tasks from "./Tasks";
-import TimeRange from "./TimeRange";
-import TimeTable from "./TimeTable";
+import AddTaskDuration from "../settings/features/AddTaskDuration.jsx";
+import AddTask from "../settings/features/AddTask.jsx";
+import Grid from "../grid/Grid.jsx";
+import Settings from "../settings/Settings.jsx";
+import Tasks from "../grid/features/Tasks.jsx";
+import TimeRange from "../settings/features/TimeRange.jsx";
+import TimeTable from "../grid/features/TimeTable.jsx";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { addtotalnotebooks } from "../page/actions.js";
-import { addTotalNotebooksDurations } from "../page/actions.js";
+import { addtotalnotebooks } from "../../../redux/actions.js";
+import { addTotalNotebooksDurations } from "../../../redux/actions.js";
 
 function GanttChart() {
-  // const notebookState = useSelector((state) => state);
   const notebookList = useSelector((state) => state.notebookList);
-  // const displayNumberList = useSelector((state) => state.notebookDisplaying);
   const totaltasksArray = useSelector((state) => state.totaltasks);
   const totaltaskDurationsArray = useSelector(
     (state) => state.totaltaskDurations
@@ -122,9 +118,6 @@ function GanttChart() {
     dispatch(addtotalnotebooks(notebookarray));
     dispatch(addTotalNotebooksDurations(notebookdurationsarray));
   }, [notebookList]);
-
-  // console.log(totaltasksArray);
-  // console.log(totaltaskDurationsArray);
 
   useEffect(() => {
     setTimeRange(getNotebookTimeRange());

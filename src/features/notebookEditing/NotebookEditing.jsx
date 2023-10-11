@@ -1,13 +1,8 @@
-import React from "react";
-import { Fragment } from "react";
-
-import { useState } from "react";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import React, { Fragment, useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import ReactMarkdown from "react-markdown";
-import { setNobebookContent } from "../page/actions";
-import { setNobebookStartAndEndTime } from "../page/actions";
+import { setNobebookContent } from "../../redux/actions";
+import { setNobebookStartAndEndTime } from "../../redux/actions";
 
 function NotebookEditer() {
   // 從 Store 取出的資料
@@ -28,31 +23,6 @@ function NotebookEditer() {
 
   // 呈現 創建筆記的時間
   const [subnotebookCreateTime, setSubNotebookCreateTime] = useState(null);
-
-  // 呈現 完成筆記的時間
-  // const [displayDoneTime, setDisplayDoneTime] = useState(false);
-
-  // const getCurrentDateTime = () => {
-  //   const now = new Date();
-  //   const year = now.getFullYear();
-  //   const month = String(now.getMonth() + 1).padStart(2, "0");
-  //   const day = String(now.getDate()).padStart(2, "0");
-  //   // const hours = String(now.getHours()).padStart(2, "0");
-  //   // const minutes = String(now.getMinutes()).padStart(2, "0");
-  //   // const seconds = String(now.getSeconds()).padStart(2, "0");
-  //   return `${year}-${month}-${day}`;
-  // };
-
-  // const handleSubnoteDoneTime = () => {
-  //   dispatch(
-  //     setSubNobebookDoneTime(
-  //       displayNumberList.notebookId,
-  //       displayNumberList.subNotebookId,
-  //       getCurrentDateTime()
-  //     )
-  //   );
-  //   setDisplayDoneTime(true);
-  // };
 
   // 編輯 note
   const [markdownText, setMarkdownText] = useState(null);

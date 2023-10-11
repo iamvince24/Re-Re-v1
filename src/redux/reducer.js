@@ -90,7 +90,6 @@ const notebookReducer = (state = notebookState, action) => {
     case "notebookList/deleteNotebook":
       const updatedNotebookList = [...state.notebookList];
       updatedNotebookList.splice(action.payload, 1);
-      // console.log(updatedNotebookList);
       return {
         ...state,
         notebookList: updatedNotebookList,
@@ -124,11 +123,9 @@ const notebookReducer = (state = notebookState, action) => {
       const { notebookId, subId } = action.payload;
       const LL = state.notebookList.map((notebook) => {
         if (notebook.id === notebookId) {
-          // console.log(notebook.id, subId);
           const updatedSubNotebook = notebook.subNotebook.filter(
             (subNote) => subNote.subId !== subId
           );
-          // console.log(notebook);
           return {
             ...notebook,
             subNotebook: updatedSubNotebook,
@@ -208,29 +205,6 @@ const notebookReducer = (state = notebookState, action) => {
         notebookList: LLLLLL,
       };
 
-    // case "notebookList/setSubNobebookDoneTime":
-    //   const subnotebookdonetimelist = state.notebookList.map((notebook) => {
-    //     if (notebook.id === action.payload.notebookId) {
-    //       return {
-    //         ...notebook,
-    //         subNotebook: notebook.subNotebook.map((subNote) => {
-    //           if (subNote.subId === action.payload.subNotebookId) {
-    //             return {
-    //               ...subNote,
-    //               subDoneTime: action.payload.subDoneTime,
-    //             };
-    //           }
-    //           return subNote;
-    //         }),
-    //       };
-    //     }
-    //     return notebook;
-    //   });
-    //   return {
-    //     ...state,
-    //     notebookList: subnotebookdonetimelist,
-    //   };
-
     case "notebookList/setNobebookStartAndEndTime":
       const subnotebookdonetimelist = state.notebookList.map((notebook) => {
         if (notebook.id === action.payload.notebookId) {
@@ -256,7 +230,6 @@ const notebookReducer = (state = notebookState, action) => {
         }
         return notebook;
       });
-      // console.log(subnotebookdonetimelist);
       return {
         ...state,
         notebookList: subnotebookdonetimelist,
@@ -269,21 +242,18 @@ const notebookReducer = (state = notebookState, action) => {
       };
 
     case "totaltasks/addtotalnotebooks":
-      // console.log(action.payload);
       return {
         ...state,
         totaltasks: action.payload,
       };
 
     case "totaltaskDurations/addTotalNotebooksDurations":
-      // console.log(action.payload);
       return {
         ...state,
         totaltaskDurations: action.payload,
       };
 
     case "notebookList/setNotebookEndTime":
-      // console.log(action.payload);
       const RE = state.notebookList.map((notebook) => {
         if (notebook.id === action.payload.notebookId) {
           return {
@@ -291,10 +261,8 @@ const notebookReducer = (state = notebookState, action) => {
             end: action.payload.endtime,
           };
         }
-        // console.log(notebook);
         return notebook;
       });
-      // console.log(RE);
       return {
         ...state,
         notebookList: RE,

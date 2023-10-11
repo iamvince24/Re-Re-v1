@@ -4,10 +4,9 @@ import {
   getDaysInMonth,
   getDayOfWeek,
   createFormattedDateFromStr,
-  createFormattedDateFromDate,
   dayDiff,
-} from "../helpers/dateFunctions";
-import { months } from "../constants";
+} from "../../../../helpers/dateFunctions";
+import { months } from "../../../../assets/data/constants";
 
 export default function TimeTable({
   timeRange,
@@ -22,9 +21,7 @@ export default function TimeTable({
     display: "grid",
     gridAutoFlow: "column",
     gridAutoColumns: "minmax(30px, 1fr)",
-    // outline: "0.5px solid var(--color-outline)",
     textAlign: "center",
-    // height: "var(--cell-height)",
     height: 35,
   };
 
@@ -34,7 +31,6 @@ export default function TimeTable({
 
   const ganttTimePeriodCell = {
     position: "relative",
-    // outline: "0.5px solid var(--color-outline)",
     outline: "0.5px solid #e9eaeb",
     marginTop: "0.5px",
   };
@@ -187,7 +183,6 @@ export default function TimeTable({
                       key={`${i}-${el.id}`}
                       draggable="true"
                       tabIndex="0"
-                      // onDragStart={() => handleDragStart(el?.id)}
                       style={{
                         ...taskDuration,
                         width: `calc(${dayDiff(
@@ -197,7 +192,6 @@ export default function TimeTable({
                         opacity:
                           taskDurationElDraggedId === el?.id ? "0.5" : "1",
                       }}
-                      // onKeyDown={(e) => deleteTaskDuration(e, el.id)}
                     ></div>
                   );
                 }
@@ -215,53 +209,6 @@ export default function TimeTable({
       }
     });
   }
-
-  // function deleteTaskDuration(e, id) {
-  //   if (e.key === "Delete" || e.key === "Backspace") {
-  //     // update taskDurations
-  //     const newTaskDurations = taskDurations.filter(
-  //       (taskDuration) => taskDuration.id !== id
-  //     );
-  //     // update state (if data on backend - make API request to update data)
-  //     setTaskDurations(newTaskDurations);
-  //   }
-  // }
-
-  // function handleDragStart(taskDurationId) {
-  //   // console.log(taskDurationId);
-  //   setTaskDurationElDraggedId(taskDurationId);
-  // }
-
-  // function onTaskDurationDrop(e) {
-  //   const targetCell = e.target;
-  //   // prevent adding on another taskDuration
-  //   if (!targetCell.hasAttribute("draggable")) {
-  //     // find task
-  //     const taskDuration = taskDurations.filter(
-  //       (taskDuration) => taskDuration.id === taskDurationElDraggedId
-  //     )[0];
-  //     const dataTask = targetCell.getAttribute("data-task");
-  //     const dataDate = targetCell.getAttribute("data-date");
-  //     const daysDuration = dayDiff(taskDuration.start, taskDuration.end);
-  //     // get new task values
-  //     // get start, calc end using daysDuration - make Date objects - change taskDurations
-  //     const newTask = parseInt(dataTask);
-  //     const newStartDate = new Date(dataDate);
-  //     let newEndDate = new Date(dataDate);
-  //     newEndDate.setDate(newEndDate.getDate() + daysDuration - 1);
-  //     // update taskDurations
-  //     taskDuration.task = newTask;
-  //     taskDuration.start = createFormattedDateFromDate(newStartDate);
-  //     taskDuration.end = createFormattedDateFromDate(newEndDate);
-  //     const newTaskDurations = taskDurations.filter(
-  //       (taskDuration) => taskDuration.id !== taskDurationElDraggedId
-  //     );
-  //     newTaskDurations.push(taskDuration);
-  //     // update state (if data on backend - make API request to update data)
-  //     setTaskDurations(newTaskDurations);
-  //   }
-  //   setTaskDurationElDraggedId(null);
-  // }
 
   return (
     <div

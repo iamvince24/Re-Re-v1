@@ -1,12 +1,11 @@
-import React from "react";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 
 function Footer() {
   return (
     <Fragment>
       <footer className="flex justify-center">
-        <p className="text-lg text-white font-medium mt-[400px]">
-          Made by Vince Guo
+        <p className="h3tag text-colorText font-medium mt-[400px] mb-[50px]">
+          Made by Vince
         </p>
       </footer>
     </Fragment>

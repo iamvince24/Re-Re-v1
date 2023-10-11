@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setNobebookStartAndEndTime } from "../page/actions";
-
-// import { displayNumber } from "../page/actions";
+import { setNobebookStartAndEndTime } from "../../../../redux/actions";
 
 export default function AddTaskDuration({ tasks, setTaskDurations }) {
   const notebookList = useSelector((state) => state.notebookList);
@@ -70,8 +68,6 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
       )
     );
 
-    // console.log(startDate, endDate);
-
     if (task === "") return;
     const timeStamp = Date.now();
     const newTaskDuration = {
@@ -85,11 +81,6 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
       return [...newState, newTaskDuration];
     });
   }
-
-  // function handleDisplayNumber() {
-  //   // console.log(NotebookId + 1, subId);
-  //   // dispatch(displayNumber(NotebookId + 1, subId));
-  // }
 
   return (
     <form

@@ -1,12 +1,6 @@
-// import React from "react";
-import { Fragment } from "react";
-
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-// import { Link, useHistory } from "react-router-dom";
-
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   auth,
@@ -15,14 +9,13 @@ import {
 } from "../../firebase";
 
 import { useSelector, useDispatch } from "react-redux";
-import { toggleloginstatus } from "../../page/actions";
+import { toggleloginstatus } from "../../redux/actions";
 
 function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [user, loading, error] = useAuthState(auth);
-  // const history = useHistory();
   const navigate = useNavigate();
 
   const loginstatusState = useSelector((state) => state.loginstatus);

@@ -1,12 +1,7 @@
-import React from "react";
-
-import { Fragment } from "react";
-// import { useState } from "react";
-import { useEffect } from "react";
-
-import SubNotebook from "./subtitleNotebook.component.jsx";
+import React, { Fragment, useEffect } from "react";
 import { useSelector } from "react-redux";
-// import { useDispatch } from "react-redux";
+
+import SubNotebook from "./SubtitleNotebook.jsx";
 
 function NotebookSubtitle({ notebookSubtitleList, id }) {
   const notebookList = useSelector((state) => state.notebookList);

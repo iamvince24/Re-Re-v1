@@ -1,25 +1,20 @@
-import { useState, useEffect } from "react";
-import React from "react";
-import { Fragment } from "react";
-
-import Notebook from "../component/notebook.component";
-
-// import { useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addNotebook } from "./actions";
-import { toggleNoteTimelineAction } from "./actions";
 
-import { logout } from "../firebase";
+import Notebook from "../notebooklist/Notebook";
 
+import { addNotebook } from "../../../redux/actions";
+import { toggleNoteTimelineAction } from "../../../redux/actions";
+
+import { logout } from "../../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-// import { auth, db, logout } from "../firebase";
-import { auth, db } from "../firebase";
+import { auth, db } from "../../../firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 
-import { toggleloginstatus } from "./actions";
+import { toggleloginstatus } from "../../../redux/actions";
 
-function Guild() {
+function NotebookGuildeline() {
   const notebookList = useSelector((state) => state.notebookList);
   const toggleNoteTimelineMode = useSelector(
     (state) => state.toggleNoteTimeline
@@ -51,32 +46,6 @@ function Guild() {
   function handleToNotebookMode() {
     dispatch(toggleNoteTimelineAction(false));
   }
-
-  // let notebookArraysssss = [];
-
-  // useEffect(() => {
-  //   let notebookArraysssss = notebookList;
-  // }, [notebookList]);
-
-  // const [LLL, setLLL] = useState(notebookList);
-
-  // useEffect(() => {
-  //   setLLL(notebookList);
-  //   console.log(LLL);
-  //   console.log(notebookList);
-  //   // console.log(LLL);
-  // }, [notebookList]);
-
-  // useEffect(() => {
-  //   setLLL(notebookList);
-  //   console.log(LLL);
-  //   console.log(notebookList);
-  //   // console.log(LLL);
-  // }, [notebookList]);
-
-  // useEffect(() => {
-  //   console.log(notebookList);
-  // }, [notebookList]);
 
   const [user, loading, error] = useAuthState(auth);
   const [name, setName] = useState("");
@@ -168,4 +137,4 @@ function Guild() {
   );
 }
 
-export default Guild;
+export default NotebookGuildeline;

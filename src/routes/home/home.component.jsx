@@ -1,7 +1,6 @@
-import React from "react";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 
-import Footer from "../footer/footer.component";
+import Footer from "./footer/footer.component";
 
 function Home() {
   return (

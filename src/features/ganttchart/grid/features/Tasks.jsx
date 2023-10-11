@@ -1,19 +1,10 @@
 import { useEffect, useRef } from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
-
-import { useState } from "react";
 
 export default function Tasks({ tasks, setTasks, setTaskDurations }) {
   const inputRef = useRef([]);
   const indexRef = useRef(null);
-
-  // const [openToggle, setOpenToggle] = useState(true);
-
-  // function changeToggle() {
-  //   setOpenToggle(!openToggle);
-  // }
 
   function handleDelete(e) {
     const idNum = parseInt(e.target.getAttribute("data-task-id"));
@@ -67,14 +58,12 @@ export default function Tasks({ tasks, setTasks, setTaskDurations }) {
                 <FontAwesomeIcon
                   className="w-3 h-3 ml-4 mr-4 rotate-90"
                   icon={faPlay}
-                  // onClick={changeToggle}
                 ></FontAwesomeIcon>
                 <input
                   data-task-id={tsk.id}
                   value={tsk.name}
                   onChange={(e) => onChange(e, i)}
                   ref={(el) => (inputRef.current[i] = el)}
-                  // className="border-none bg-none outline-none"
                   style={{
                     border: "none",
                     outline: "none",
@@ -88,20 +77,16 @@ export default function Tasks({ tasks, setTasks, setTaskDurations }) {
                 <FontAwesomeIcon
                   className="w-3 h-3 hidden"
                   icon={faPlay}
-                  // onClick={changeToggle}
                 ></FontAwesomeIcon>
                 <input
                   data-task-id={tsk.id}
                   value={tsk.name}
                   onChange={(e) => onChange(e, i)}
                   ref={(el) => (inputRef.current[i] = el)}
-                  // className="border-none bg-none outline-none"
                   style={{
-                    // border: "none",
                     outline: "none",
                     background: "none",
                   }}
-                  // className={` ${openToggle ? null : "hidden"} font-bold h5tag`}
                   className="font-bold h5tag pl-[45px] "
                 />
               </div>

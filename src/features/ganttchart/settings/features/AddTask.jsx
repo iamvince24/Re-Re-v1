@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AddButton from "./AddButton";
+import AddButton from "../../../../component/AddButton";
 
 export default function AddTask({ setTasks }) {
   const [task, setTask] = useState("");
@@ -12,20 +12,6 @@ export default function AddTask({ setTasks }) {
     e.preventDefault();
     setTask("");
   }
-
-  // setTasks((prevState) => {
-  //   const newState = prevState;
-  //   // find largest task number, add 1 for new task - else could end up with tasks with same id
-  //   const maxIdVal = prevState.reduce(function (a, b) {
-  //     return Math.max(a, b.id);
-  //   }, -Infinity);
-  //   // create new task
-  //   newState.push({
-  //     id: isFinite(maxIdVal) ? maxIdVal + 1 : 1,
-  //     name: task,
-  //   });
-  //   return [...newState];
-  // });
 
   return (
     <form

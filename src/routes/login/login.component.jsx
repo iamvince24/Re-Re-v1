@@ -1,21 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-import { toggleloginstatus } from "../../page/actions";
-
-import {
-  auth,
-  // signInWithEmailAndPassword,
-  signInWithGoogle,
-} from "../../firebase";
-
+import { toggleloginstatus } from "../../redux/actions";
+import { auth, signInWithGoogle } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-
 import { useAuthState } from "react-firebase-hooks/auth";
-
 import { useSelector, useDispatch } from "react-redux";
 
 function Login() {
@@ -30,7 +20,6 @@ function Login() {
   useEffect(() => {
     if (loading) {
       // maybe trigger a loading screen
-
       return;
     }
 
@@ -99,7 +88,3 @@ function Login() {
 }
 
 export default Login;
-
-// Login.propTypes = {
-//   setToken: PropTypes.func.isRequired,
-// };

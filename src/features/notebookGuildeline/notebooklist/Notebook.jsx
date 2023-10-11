@@ -1,20 +1,16 @@
-import React from "react";
-import { Fragment } from "react";
-import { useState, useEffect } from "react";
-// import { useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
-import NotebookSubtitle from "./notebookSubtitle.component";
+import NotebookSubtitle from "./NotebookSubtitle";
 
 import { useSelector, useDispatch } from "react-redux";
-import { deleteNotebook } from "../page/actions";
-import { setNotebooktitle } from "../page/actions";
-import { addSubNotebook } from "../page/actions";
-
-import { displayNumber } from "../page/actions";
-import { setNotebookEndTime } from "../page/actions";
+import { deleteNotebook } from "../../../redux/actions";
+import { setNotebooktitle } from "../../../redux/actions";
+import { addSubNotebook } from "../../../redux/actions";
+import { displayNumber } from "../../../redux/actions";
+import { setNotebookEndTime } from "../../../redux/actions";
 
 function Notebook({ notebookName, notebookListArray, id }) {
   const notebookList = useSelector((state) => state.notebookList);
@@ -24,16 +20,12 @@ function Notebook({ notebookName, notebookListArray, id }) {
   const [openToggle, setOpenToggle] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState(notebookName);
-  // const [notebookList, setNotebookList] = useState(notebookListArray);
 
   const getCurrentDateTime = () => {
     const now = new Date();
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, "0");
     const day = String(now.getDate()).padStart(2, "0");
-    // const hours = String(now.getHours()).padStart(2, "0");
-    // const minutes = String(now.getMinutes()).padStart(2, "0");
-    // return `${year}-${month}-${day} ${hours}:${minutes}`;
     return `${year}-${month}-${day}`;
   };
 
@@ -105,18 +97,6 @@ function Notebook({ notebookName, notebookListArray, id }) {
     dispatch(setNotebookEndTime(id + 1, maxDateString));
   };
 
-  // useEffect(() => {
-  //   console.log(notebookList);
-  // }, [notebookList]);
-
-  // useEffect(() => {
-  //   console.log(notebookList[id]);
-  // }, [notebookList[id]]);
-
-  // useEffect(() => {
-  //   setEditedName(notebookName);
-  // }, [notebookList]);
-
   useEffect(() => {
     let notebookTimeArray = [];
     notebookList[id].subNotebook.map((subnotebook) => {
@@ -128,10 +108,6 @@ function Notebook({ notebookName, notebookListArray, id }) {
     }, "");
     dispatch(setNotebookEndTime(id + 1, maxDateString));
   }, []);
-
-  // useEffect(() => {
-  //   console.log(notebookList);
-  // }, [notebookList]);
 
   return (
     <Fragment>
@@ -148,7 +124,6 @@ function Notebook({ notebookName, notebookListArray, id }) {
             <input
               type="text"
               value={editedName}
-              // onChange={(e) => setEditedName(e.target.value)}
               onChange={handleditedName}
               onBlur={handleSave}
               autoFocus

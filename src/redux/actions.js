@@ -102,17 +102,6 @@ export const setSubNobebookTitle = (notebookId, subId, subtitle) => {
   };
 };
 
-// export const setSubNobebookDoneTime = (notebookId, subId, donetime) => {
-//   return {
-//     type: "notebookList/setSubNobebookDoneTime",
-//     payload: {
-//       notebookId: notebookId,
-//       subNotebookId: subId,
-//       subEnd: donetime,
-//     },
-//   };
-// };
-
 export const setNobebookStartAndEndTime = (
   notebookId,
   subId,
@@ -136,16 +125,6 @@ export const toggleNoteTimelineAction = (boolean) => {
     payload: boolean,
   };
 };
-
-// export const addtoTaltasks = (id, name) => {
-//   return {
-//     type: "totaltasks/addtoTaltasks",
-//     payload: {
-//       id: id,
-//       name: name,
-//     },
-//   };
-// };
 
 export const addtotalnotebooks = (array) => {
   return {
