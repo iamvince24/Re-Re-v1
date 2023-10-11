@@ -9,8 +9,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useSelector, useDispatch } from "react-redux";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("test@gmail.com");
+  const [password, setPassword] = useState("test123");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 

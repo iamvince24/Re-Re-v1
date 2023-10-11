@@ -99,7 +99,7 @@ function NotebookGuildeline() {
           </div>
 
           <div className="flex justify-between items-center w-full mt-[40px] px-1">
-            <p className="h4tag font-medium">Notebook</p>
+            <p className="h4tag font-medium">Adding Notebook</p>
             <button
               className="h4tag mb-[5px] hover:font-bold"
               id="addnotebookButton"

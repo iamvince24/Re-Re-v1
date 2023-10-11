@@ -2,11 +2,11 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
 
-import Navigation from "./routes/navigation/navigation.component";
-import Home from "./routes/home/home.component";
-import Login from "./routes/login/login.component";
-import SignUp from "./routes/signup/signup.component";
-import Reset from "./routes/reset/reset.component";
+import Navigation from "./routes/navigation/navigation";
+import Home from "./routes/home/home";
+import Login from "./routes/login/login";
+import SignUp from "./routes/signup/signup";
+import Reset from "./routes/reset/reset";
 
 import Application from "./routes/application/application";
 
