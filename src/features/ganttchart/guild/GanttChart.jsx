@@ -126,7 +126,7 @@ function GanttChart() {
   return (
     <div
       id="gantt-container"
-      className="col-span-8 bg-gray bg-opacity-20 rounded-xl"
+      className="col-span-8 bg-bgGray bg-opacity-20 rounded-xl"
     >
       <Settings>
         <AddTask setTasks={setTasks} />

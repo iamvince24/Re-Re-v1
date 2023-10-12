@@ -78,7 +78,7 @@ function NotebookGuildeline() {
 
   return (
     <Fragment>
-      <section className="col-span-2 bg-gray bg-opacity-20 rounded-xl flex flex-col justify-between items-center h-[1000px] w-full p-4 overflow-y-auto flex-1">
+      <section className="col-span-2 bg-bgGray bg-opacity-20 rounded-xl flex flex-col justify-between items-center h-[1000px] w-full p-4 overflow-y-auto flex-1">
         <div className="w-full flex flex-col justify-start items-center">
           <div className="w-full flex justify-between items-center">
             {toggleNoteTimelineMode ? (

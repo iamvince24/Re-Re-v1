@@ -127,8 +127,8 @@ function NotebookEditer() {
 
   return (
     <Fragment>
-      <div className="col-span-8 bg-gray bg-opacity-20 rounded-xl p-4 ">
-        <div className="rounded-md border-[1px] border-lightgray p-3 h-full w-full flex flex-col">
+      <div className="col-span-8 bg-bgGray bg-opacity-20 rounded-xl p-4 ">
+        <div className="rounded-md border-[1px] border-gray p-3 h-full w-full flex flex-col">
           <div className="flex justify-between px-2 w-full mt-2 mb-4 ">
             <div className="flex flex-col ">
               <div className="h1tag font-extrabold ">{subnotebooktitle}</div>
@@ -170,7 +170,7 @@ function NotebookEditer() {
                         onChange={onChange}
                         className="w-[125px] px-[10px] py-[5px] h-[40px] h5tag rounded-md bg-lightgray"
                       />
-                    </div>{" "}
+                    </div>
                   </fieldset>
                 )}
               </div>
@@ -193,7 +193,7 @@ function NotebookEditer() {
               )}
             </div>
           </div>
-          <hr className="border-b mt-[10px] mb-5 border-gray" />
+          <hr className="border-b-[0.1px] mt-[10px] mb-5 border-gray" />
           <article className="px-2 pb-2 h-full">
             {displayNotebook ? (
               <textarea
