@@ -6,18 +6,18 @@ function Home() {
   return (
     <Fragment>
       <main className="flex">
-        <section className="flex flex-col justify-center items-center mx-[50px] mt-[80px] max-[450px]:mt-[30px] max-[450px]:mx-[25px]">
-          <p className="text-colorText text-[9rem] leading-[170px] text-center tracking-tight font-black  max-[768px]:text-[5rem] max-[450px]:text-[3rem] max-[450px]:leading-[50px] max-[450px]:tracking-normal">
+        <section className="flex flex-col justify-center items-center mx-[25px] my-[30px] sm:mx-[50px] sm:my-[40px] lg:mt-[60px]">
+          <p className="text-colorText text-[3rem] leading-[50px] text-center tracking-tight font-black sm:text-[4rem] sm:leading-[65px] md:text-[5rem] md:leading-[80px] lg:text-[6rem] lg:leading-[110px]">
             A tool for
             <br />
             Recording and Reviewing
             <br />
             your learning
           </p>
-          <p className="h3tag w-3/4 text-center font-normal tracking-wide mt-[70px] max-[450px]:text-[12px] max-[450px]:mt-[40px] max-[450px]:w-7/8">
+          <p className="h4tag w-5/6 text-center font-normal tracking-wide mt-[50px] sm:text-[15px] sm:mt-[50px] sm:w-7/8 md:text-[17px] md:mt-[60px] lg:text-[20px] lg:mt-[70px]">
             Introducing my app, the ultimate solution for effortless Note
-            Tracking. With our intuitive interface and powerful features, you
-            can seamlessly record, organize, and review your notes like never
+            Tracking. With my intuitive interface and powerful features, you can
+            seamlessly record, organize, and review your notes like never
             before. Stay organized and in control with our user-friendly app,
             making note-taking a breeze.
           </p>

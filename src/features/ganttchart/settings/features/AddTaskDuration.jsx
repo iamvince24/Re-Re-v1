@@ -86,13 +86,15 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
     <form
       id="add-task-duration"
       onSubmit={handleSubmit}
-      className="rounded-lg border border-gray p-3 w-2/3 h-[125px] mr-4"
+      className="rounded-lg border border-gray p-3 md:w-2/3 md:mr-4"
     >
-      <h2 className="h4tag font-bold mb-8">Adjust Task Duration</h2>
-      <div className="flex justify-between ">
+      <h2 className="h3tag font-bold mb-5 md:h4tag md:mb-8">
+        Adjust Task Duration
+      </h2>
+      <div className="flex flex-col">
         <div
           id="task"
-          className="w-auto flex items-center flex-nowrap whitespace-nowrap "
+          className="w-auto flex items-center flex-nowrap whitespace-nowrap mb-3"
         >
           <p>Now Selected:&nbsp;</p>
           <p className="flex flex-nowrap items-center">
@@ -105,7 +107,6 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
                     displayNumberList.subNotebookId - 1
                   ].subtitle}
             </strong>
-
             {notebookList.length === 0 ||
             notebookList[displayNumberList.notebookId - 1].subNotebook
               .length === 0 ? null : (
@@ -115,39 +116,47 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
             )}
           </p>
         </div>
-        <div className="fieldset-container flex items-center w-[200px] ">
-          <label htmlFor="start-date" className="h5tag mr-2 whitespace-nowrap">
-            Start date:
-          </label>
-          <input
-            type="date"
-            id="start-date"
-            name="start-date"
-            value={startDate}
-            min="2022-01-01"
-            max="2050-12-31"
-            onChange={onChange}
-            className="w-[125px] px-[10px] py-[5px] h-[40px] h5tag rounded-md bg-lightgray hover:border hover:border-colorText"
-          />
-        </div>
-        <div className="fieldset-container flex items-center w-[200px] ">
-          <label htmlFor="end-date" className="h5tag mr-2 whitespace-nowrap">
-            End date:
-          </label>
-          <input
-            type="date"
-            id="end-date"
-            name="end-date"
-            value={endDate}
-            min="2022-01-01"
-            max="2050-12-31"
-            onChange={onChange}
-            className="w-[125px] px-[10px] py-[5px] h-[40px] h5tag rounded-md bg-lightgray  hover:border hover:border-colorText"
-          />
+        <div className="flex flex-col mb-3 md:justify-between md:flex-row">
+          <div className="fieldset-container flex items-center w-[200px] mb-3 md:mb-0">
+            <label
+              htmlFor="start-date"
+              className="text-[1rem] mr-2 whitespace-nowrap md:h5tag"
+            >
+              Start date:
+            </label>
+            <input
+              type="date"
+              id="start-date"
+              name="start-date"
+              value={startDate}
+              min="2022-01-01"
+              max="2050-12-31"
+              onChange={onChange}
+              className="w-[125px] px-[10px] py-[5px] h-[30px] h5tag rounded-md bg-lightgray hover:border hover:border-colorText md:h-[40px]"
+            />
+          </div>
+          <div className="fieldset-container flex items-center w-[200px]">
+            <label
+              htmlFor="end-date"
+              className="text-[1rem] mr-2 whitespace-nowrap md:h5tag"
+            >
+              End date:
+            </label>
+            <input
+              type="date"
+              id="end-date"
+              name="end-date"
+              value={endDate}
+              min="2022-01-01"
+              max="2050-12-31"
+              onChange={onChange}
+              className="w-[125px] px-[10px] py-[5px] h-[30px] h5tag rounded-md bg-lightgray  hover:border hover:border-colorText md:h-[40px]"
+            />
+          </div>
         </div>
         <button
           type="submit"
-          className="btn w-[125px] bg-lightgray "
+          className="btn w-[105px] h-[30px] bg-lightgray md:w-[125px] md:h-[40px]"
           onChange={handleSubmit}
         >
           Set up

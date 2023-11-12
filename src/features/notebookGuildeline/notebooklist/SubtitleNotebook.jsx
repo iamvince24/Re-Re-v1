@@ -62,7 +62,7 @@ function SubNotebook({ subNotebookName, NotebookId, subId }) {
         />
       ) : (
         <button
-          className="font-bold ml-1 h5tag whitespace-nowrap hover:underline "
+          className="font-bold ml-1 h4tag whitespace-nowrap hover:underline md:h5tag"
           onDoubleClick={handleDoubleClick}
           onClick={handleDisplayNumber}
         >

@@ -133,7 +133,7 @@ function Notebook({ notebookName, notebookListArray, id }) {
             />
           ) : (
             <p
-              className="h4tag font-bold whitespace-nowrap"
+              className="h3tag font-bold whitespace-nowrap md:h4tag"
               onDoubleClick={handleDoubleClick}
             >
               {editedName}
