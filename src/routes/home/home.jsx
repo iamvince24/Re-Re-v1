@@ -15,7 +15,7 @@ function Home() {
             your learning
           </p>
           <p className="h3tag w-3/4 text-center font-normal tracking-wide mt-[70px] max-[450px]:text-[12px] max-[450px]:mt-[40px] max-[450px]:w-7/8">
-            Introducing our app, the ultimate solution for effortless Note
+            Introducing my app, the ultimate solution for effortless Note
             Tracking. With our intuitive interface and powerful features, you
             can seamlessly record, organize, and review your notes like never
             before. Stay organized and in control with our user-friendly app,
