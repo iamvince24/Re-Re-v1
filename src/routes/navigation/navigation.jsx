@@ -12,13 +12,13 @@ function Navigation() {
         </nav>
         <nav className="font-medium self-center" id="naivgation">
           <Link
-            className="h4tag pl-[25px] tracking-wide sm:pl-[60px] lg:h3tag"
+            className="h4tag pl-[25px] tracking-wide sm:pl-[60px] lg:h4tag"
             to="/login"
           >
             LogIn
           </Link>
           <Link
-            className="h4tag pl-[25px] tracking-wide sm:pl-[60px] lg:h3tag"
+            className="h4tag pl-[25px] tracking-wide sm:pl-[60px] lg:h4tag"
             to="/register"
           >
             SignUp

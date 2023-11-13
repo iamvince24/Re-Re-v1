@@ -78,19 +78,19 @@ function NotebookGuildeline() {
 
   return (
     <Fragment>
-      <section className="col-span-2 bg-bgGray bg-opacity-20 rounded-xl flex flex-col justify-between items-center h-[1000px] w-full p-4 overflow-y-auto flex-1 mb-2 border-black border-[1px] md:border-0">
+      <section className="md:col-span-3 lg:col-span-2 bg-bgGray bg-opacity-20 rounded-xl flex flex-col justify-between items-center h-[1000px] w-full p-4 overflow-y-auto flex-1 mb-2 border-gray border-[1px] md:border-0">
         <div className="w-full flex flex-col justify-start items-center">
           <div className="w-full flex justify-between items-center">
             {toggleNoteTimelineMode ? (
               <button
-                className="w-full h-[35px] h4tag font-bold rounded placeholder:text-sm border border-gray  hover:border-colorText active:bg-colorText active:bg-opacity-10"
+                className="w-full h-[35px] h4tag md:h5tag lg:h5tag font-bold rounded placeholder:text-sm border border-gray  hover:border-colorText active:bg-colorText active:bg-opacity-10"
                 onClick={handleToNotebookMode}
               >
                 To Notebook Mode
               </button>
             ) : (
               <button
-                className="w-full h-[35px] h4tag font-bold  rounded placeholder:text-sm border border-gray  hover:border-colorText active:bg-colorText active:bg-opacity-10"
+                className="w-full h-[35px] h4tag md:h5tag lg:h5tag font-bold rounded placeholder:text-sm border border-gray  hover:border-colorText active:bg-colorText active:bg-opacity-10"
                 onClick={handleToTimelineMode}
               >
                 To Timeline Mode
@@ -98,10 +98,10 @@ function NotebookGuildeline() {
             )}
           </div>
 
-          <div className="flex justify-between items-center w-full my-[20px] px-1 md:my-[40px]">
-            <p className="h3tag font-medium md:h4tag">Adding Notebook</p>
+          <div className="flex justify-between items-center w-full my-[20px] px-1 md:my-[30px] lg:my-[40px]">
+            <p className="h3tag md:h4tag font-medium ">Adding Notebook</p>
             <button
-              className="h2tag mb-[5px] hover:font-bold md:h4tag"
+              className="h2tag md:h4tag  hover:font-bold"
               id="addnotebookButton"
               onClick={handleAddNotebook}
             >
@@ -126,7 +126,7 @@ function NotebookGuildeline() {
         </div>
         <div className="flex flex-col w-full mt-8">
           <button
-            className="h5tag font-medium tracking-wide h-[35px] w-full rounded placeholder:text-sm border border-gray hover:border-colorText active:bg-colorText active:bg-opacity-10"
+            className="h4tag md:h5tag lg:h5tag font-medium tracking-wide h-[35px] w-full rounded placeholder:text-sm border border-gray hover:border-colorText active:bg-colorText active:bg-opacity-10"
             onClick={handleToggleLoginStatus}
           >
             Log out

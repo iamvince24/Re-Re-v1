@@ -16,7 +16,7 @@ function Application() {
 
   return (
     <Fragment>
-      <section className="flex flex-col m-3 md:grid md:grid-cols-10 md:gap-4 md:m-5 md:h-full">
+      <section className="flex flex-col m-3 md:grid md:grid-cols-10 md:gap-4  lg:m-5 md:h-full">
         <NotebookGuildeline />
         {toggle ? <GanttChart /> : <NotebookEditer />}
       </section>

@@ -111,36 +111,38 @@ function Notebook({ notebookName, notebookListArray, id }) {
 
   return (
     <Fragment>
-      <section className="flex justify-between items-center w-full h-10 bg-gray-300 bg-opacity-70 rounded-md ">
-        <div className="flex items-center">
-          <FontAwesomeIcon
-            className={`w-3 h-3 mr-4 ${
-              openToggle ? "rotate-90" : ""
-            } hover:scale-125`}
-            icon={faPlay}
-            onClick={changeToggle}
-          ></FontAwesomeIcon>
-          {isEditing ? (
-            <input
-              type="text"
-              value={editedName}
-              onChange={handleditedName}
-              onBlur={handleSave}
-              autoFocus
-              className="font-bold border rounded px-3 py-1 focus:outline-none  focus:border-white h-4/5"
-              style={{ minWidth: "100px" }}
-              onKeyDown={handleKeyDown}
-            />
-          ) : (
-            <p
-              className="h3tag font-bold whitespace-nowrap md:h4tag"
-              onDoubleClick={handleDoubleClick}
-            >
-              {editedName}
-            </p>
-          )}
+      <section className="flex justify-between items-center w-full h-10 bg-gray-300 bg-opacity-70 rounded-md">
+        <div className="flex justify-between items-center w-full mr-4 md:mr-2">
+          <div className="flex justify-start items-center">
+            <FontAwesomeIcon
+              className={`w-3 h-3 md:w-2 md:h-2 lg:w-3 lg:h-3 mr-4 md:mr-2 lg:mr-4 ${
+                openToggle ? "rotate-90" : ""
+              } hover:scale-125`}
+              icon={faPlay}
+              onClick={changeToggle}
+            ></FontAwesomeIcon>
+            {isEditing ? (
+              <input
+                type="text"
+                value={editedName}
+                onChange={handleditedName}
+                onBlur={handleSave}
+                autoFocus
+                className="font-bold border rounded px-3 py-1 focus:outline-none  focus:border-white h-4/5"
+                style={{ minWidth: "100px" }}
+                onKeyDown={handleKeyDown}
+              />
+            ) : (
+              <p
+                className="h3tag md:text-[16px] lg:h4tag font-bold leading-5"
+                onDoubleClick={handleDoubleClick}
+              >
+                {editedName}
+              </p>
+            )}
+          </div>
           <button
-            className="text-[18px] text-gray-400 font-medium  ml-4 hover:font-black active:text-gray"
+            className="text-[18px] text-gray-400 font-medium ml-4 md:ml-2 lg:ml-2 hover:font-black active:text-gray"
             onClick={handleAddSubNotebook}
           >
             ⊕
