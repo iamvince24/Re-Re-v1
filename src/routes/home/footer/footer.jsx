@@ -4,7 +4,7 @@ function Footer() {
   return (
     <Fragment>
       <footer className="flex justify-center">
-        <p className="h3tag text-colorText font-medium mt-[400px] mb-[50px]">
+        <p className="h4tag text-colorText font-medium mt-[400px] mb-[50px]">
           Made by Vince
         </p>
       </footer>

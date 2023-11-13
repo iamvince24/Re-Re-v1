@@ -15,11 +15,11 @@ function NotebookSubtitle({ notebookSubtitleList, id }) {
 
   return (
     <Fragment>
-      <div className="flex flex-col justify-between w-full mb-4 ">
+      <div className="flex flex-col justify-between w-full mb-4">
         {notebookSubtitleList.subNotebook.map((subtitleNotebook, index) => {
           return (
             <div
-              className="flex items-center justify-between h-[32px] pl-[24px] w-full"
+              className="flex items-center justify-between h-[32px] w-full"
               key={subtitleNotebook.subId}
             >
               <SubNotebook

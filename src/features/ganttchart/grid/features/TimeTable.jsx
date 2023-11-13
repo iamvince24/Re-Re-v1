@@ -217,7 +217,7 @@ export default function TimeTable({
         display: "grid",
         gridTemplateColumns: `repeat(${numMonths}, 1fr)`,
       }}
-      className="col-span-5 border-r border-t border-b border-gray overflow-x-auto flex content-start rounded-tr-lg rounded-br-lg"
+      className="col-span-4 md:col-span-5 lg:md:col-span-6 border-r border-t border-b border-gray overflow-x-auto flex content-start rounded-tr-lg rounded-br-lg"
     >
       {monthRows}
       {dayRows}
