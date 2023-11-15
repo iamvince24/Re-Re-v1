@@ -2,17 +2,19 @@ import React, { Fragment, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Notebook from "../notebooklist/Notebook";
+import ModeButton from "../../../component/button/ToModeButton";
 
-import { addNotebook } from "../../../redux/actions";
-import { toggleNoteTimelineAction } from "../../../redux/actions";
+import {
+  addNotebook,
+  toggleNoteTimelineAction,
+  toggleloginstatus,
+} from "../../../redux/actions";
 
 import { logout } from "../../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "../../../firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
-
-import { toggleloginstatus } from "../../../redux/actions";
 
 function NotebookGuildeline() {
   const notebookList = useSelector((state) => state.notebookList);
@@ -39,17 +41,18 @@ function NotebookGuildeline() {
     );
   };
 
-  function handleToTimelineMode() {
+  const handleToTimelineMode = () => {
     dispatch(toggleNoteTimelineAction(true));
-  }
+  };
 
-  function handleToNotebookMode() {
+  const handleToNotebookMode = () => {
     dispatch(toggleNoteTimelineAction(false));
-  }
+  };
 
   const [user, loading, error] = useAuthState(auth);
   const [name, setName] = useState("");
   const navigate = useNavigate();
+
   const fetchUserName = async () => {
     try {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -62,17 +65,19 @@ function NotebookGuildeline() {
     }
   };
 
-  function handleToggleLoginStatus() {
+  const handleToggleLoginStatus = () => {
     logout();
     dispatch(toggleloginstatus(false));
-  }
+  };
 
   useEffect(() => {
     if (loading) {
       dispatch(toggleloginstatus(true));
       return;
     }
+
     if (!user) return navigate("/");
+
     fetchUserName();
   }, [user, loading]);
 
@@ -82,19 +87,15 @@ function NotebookGuildeline() {
         <div className="w-full flex flex-col justify-start items-center">
           <div className="w-full flex justify-between items-center">
             {toggleNoteTimelineMode ? (
-              <button
-                className="w-full h-[35px] h4tag md:h5tag lg:h5tag font-bold rounded placeholder:text-sm border border-gray  hover:border-colorText active:bg-colorText active:bg-opacity-10"
+              <ModeButton
                 onClick={handleToNotebookMode}
-              >
-                To Notebook Mode
-              </button>
+                label="To Notebook Mode"
+              />
             ) : (
-              <button
-                className="w-full h-[35px] h4tag md:h5tag lg:h5tag font-bold rounded placeholder:text-sm border border-gray  hover:border-colorText active:bg-colorText active:bg-opacity-10"
+              <ModeButton
                 onClick={handleToTimelineMode}
-              >
-                To Timeline Mode
-              </button>
+                label="To Timeline Mode"
+              />
             )}
           </div>
 
