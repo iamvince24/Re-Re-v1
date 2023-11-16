@@ -31,7 +31,7 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
         ].subEnd
       );
     }
-  }, [displayNumberList]);
+  }, [notebookList, displayNumberList]);
 
   function onChange(e) {
     const { value, id } = e.target;

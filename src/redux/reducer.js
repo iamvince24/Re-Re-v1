@@ -269,7 +269,7 @@ const notebookReducer = (state = notebookState, action) => {
       };
 
     case "loginstatus/toggleloginstatus":
-      console.log(action.payload);
+      // console.log(action.payload);
       return {
         ...state,
         loginstatus: action.payload,

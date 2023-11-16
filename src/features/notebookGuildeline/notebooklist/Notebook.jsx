@@ -1,18 +1,22 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useCallback } from "react";
+
+import SubNotebook from "./SubtitleNotebook.jsx";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
-import NotebookSubtitle from "./NotebookSubtitle";
+import { getCurrentDateTime } from "../../../utils/getCurrentDateTime.js";
 
 import { useSelector, useDispatch } from "react-redux";
-import { deleteNotebook } from "../../../redux/actions";
-import { setNotebooktitle } from "../../../redux/actions";
-import { addSubNotebook } from "../../../redux/actions";
-import { displayNumber } from "../../../redux/actions";
-import { setNotebookEndTime } from "../../../redux/actions";
+import {
+  deleteNotebook,
+  setNotebooktitle,
+  addSubNotebook,
+  displayNumber,
+  setNotebookEndTime,
+} from "../../../redux/actions";
 
-function Notebook({ notebookName, notebookListArray, id }) {
+function Notebook({ notebookName, id }) {
   const notebookList = useSelector((state) => state.notebookList);
   const displayNumberList = useSelector((state) => state.notebookDisplaying);
   const dispatch = useDispatch();
@@ -21,26 +25,10 @@ function Notebook({ notebookName, notebookListArray, id }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState(notebookName);
 
-  const getCurrentDateTime = () => {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, "0");
-    const day = String(now.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
-
   notebookList.map((notebook, index) => {
     notebook.id = index + 1;
     return notebook;
   });
-
-  function changeToggle() {
-    setOpenToggle(!openToggle);
-  }
-
-  function handleDoubleClick() {
-    setIsEditing(true);
-  }
 
   function handleSave() {
     setIsEditing(false);
@@ -50,12 +38,6 @@ function Notebook({ notebookName, notebookListArray, id }) {
   function handleditedName(e) {
     setEditedName(e.target.value);
     dispatch(setNotebooktitle(id + 1, e.target.value));
-  }
-
-  function handleKeyDown(e) {
-    if (e.key === "Enter") {
-      handleSave();
-    }
   }
 
   const handleDeleteNotebook = (index) => {
@@ -73,6 +55,16 @@ function Notebook({ notebookName, notebookListArray, id }) {
     dispatch(displayNumber(a, b));
   };
 
+  const findMaxDateString = useCallback((subNotebooks) => {
+    const notebookTimeArray = subNotebooks.map(
+      (subnotebook) => subnotebook.subEnd
+    );
+    return notebookTimeArray.reduce(
+      (max, dateString) => (dateString > max ? dateString : max),
+      ""
+    );
+  }, []);
+
   const handleAddSubNotebook = () => {
     dispatch(
       addSubNotebook(
@@ -83,31 +75,21 @@ function Notebook({ notebookName, notebookListArray, id }) {
       )
     );
 
-    let notebookTimeArray = [];
-
-    notebookList[id].subNotebook.map((subnotebook) => {
-      notebookTimeArray.push(subnotebook.subEnd);
-      return subnotebook;
-    });
-
-    var maxDateString = notebookTimeArray.reduce(function (max, dateString) {
-      return dateString > max ? dateString : max;
-    }, "");
-
+    const maxDateString = findMaxDateString(notebookList[id].subNotebook);
     dispatch(setNotebookEndTime(id + 1, maxDateString));
   };
 
+  // useEffect(() => {
+  //   const maxDateString = findMaxDateString(notebookList[id].subNotebook);
+  //   dispatch(setNotebookEndTime(id + 1, maxDateString));
+  // }, [notebookList[id].subNotebook]);
+
   useEffect(() => {
-    let notebookTimeArray = [];
-    notebookList[id].subNotebook.map((subnotebook) => {
-      notebookTimeArray.push(subnotebook.subEnd);
+    notebookList[id].subNotebook.map((subnotebook, index) => {
+      subnotebook.subId = index + 1;
       return subnotebook;
     });
-    var maxDateString = notebookTimeArray.reduce(function (max, dateString) {
-      return dateString > max ? dateString : max;
-    }, "");
-    dispatch(setNotebookEndTime(id + 1, maxDateString));
-  }, []);
+  });
 
   return (
     <Fragment>
@@ -119,7 +101,9 @@ function Notebook({ notebookName, notebookListArray, id }) {
                 openToggle ? "rotate-90" : ""
               } hover:scale-125`}
               icon={faPlay}
-              onClick={changeToggle}
+              onClick={() => {
+                setOpenToggle(!openToggle);
+              }}
             ></FontAwesomeIcon>
             {isEditing ? (
               <input
@@ -128,14 +112,20 @@ function Notebook({ notebookName, notebookListArray, id }) {
                 onChange={handleditedName}
                 onBlur={handleSave}
                 autoFocus
-                className="font-bold border rounded px-3 py-1 focus:outline-none  focus:border-white h-4/5"
-                style={{ minWidth: "100px" }}
-                onKeyDown={handleKeyDown}
+                className="w-full font-bold border rounded px-3 py-1 focus:outline-none focus:border-white"
+                // style={{ minWidth: "100px" }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSave();
+                  }
+                }}
               />
             ) : (
               <p
                 className="h3tag md:text-[16px] lg:h4tag font-bold leading-5"
-                onDoubleClick={handleDoubleClick}
+                onDoubleClick={() => {
+                  setIsEditing(true);
+                }}
               >
                 {editedName}
               </p>
@@ -156,7 +146,22 @@ function Notebook({ notebookName, notebookListArray, id }) {
         </button>
       </section>
       {openToggle && (
-        <NotebookSubtitle notebookSubtitleList={notebookList[id]} id={id} />
+        <div className="flex flex-col justify-between w-full mb-4">
+          {notebookList[id].subNotebook.map((subtitleNotebook, index) => {
+            return (
+              <div
+                className="flex items-center justify-between h-[32px] w-full"
+                key={subtitleNotebook.subId}
+              >
+                <SubNotebook
+                  subNotebookName={subtitleNotebook.subtitle}
+                  NotebookId={id}
+                  subId={index + 1}
+                />
+              </div>
+            );
+          })}
+        </div>
       )}
     </Fragment>
   );

@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
-import { deleteSubNotebook } from "../../../redux/actions";
-import { displayNumber } from "../../../redux/actions";
-import { setSubNobebookTitle } from "../../../redux/actions";
+import {
+  deleteSubNotebook,
+  displayNumber,
+  setSubNobebookTitle,
+} from "../../../redux/actions";
 
 function SubNotebook({ subNotebookName, NotebookId, subId }) {
   const displayNumberList = useSelector((state) => state.notebookDisplaying);
@@ -16,30 +18,9 @@ function SubNotebook({ subNotebookName, NotebookId, subId }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState(subNotebookName);
 
-  function handleDoubleClick() {
-    setIsEditing(true);
-  }
-
   function handleSave() {
     setIsEditing(false);
     setEditedName(editedName);
-  }
-
-  function handleKeyDown(e) {
-    if (e.key === "Enter") {
-      handleSave();
-    }
-  }
-
-  function handleditedName(e) {
-    setEditedName(e.target.value);
-    dispatch(
-      setSubNobebookTitle(
-        displayNumberList.notebookId,
-        displayNumberList.subNotebookId,
-        e.target.value
-      )
-    );
   }
 
   function handleDisplayNumber() {
@@ -61,17 +42,32 @@ function SubNotebook({ subNotebookName, NotebookId, subId }) {
           <input
             type="text"
             value={editedName}
-            onChange={handleditedName}
+            onChange={(e) => {
+              setEditedName(e.target.value);
+              dispatch(
+                setSubNobebookTitle(
+                  displayNumberList.notebookId,
+                  displayNumberList.subNotebookId,
+                  e.target.value
+                )
+              );
+            }}
             onBlur={handleSave}
             autoFocus
-            className="font-bold border rounded px-3 py-1 focus:outline-none  focus:border-white h-4/5"
+            className="h-4/5 w-full font-bold border rounded px-3 py-1 mr-2 focus:outline-none focus:border-white"
             style={{ minWidth: "100px" }}
-            onKeyDown={handleKeyDown}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSave();
+              }
+            }}
           />
         ) : (
           <button
             className="font-bold h4tag md:h5tag hover:underline leading-4 text-left"
-            onDoubleClick={handleDoubleClick}
+            onDoubleClick={() => {
+              setIsEditing(true);
+            }}
             onClick={handleDisplayNumber}
           >
             {editedName}

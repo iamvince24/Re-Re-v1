@@ -39,23 +39,23 @@ export default function Tasks({ tasks, setTasks, setTaskDurations }) {
   return (
     <div
       id="gantt-grid-container__tasks"
-      className="col-span-4 md:col-span-3 lg:col-span-2 border border-gray rounded-tl-lg rounded-bl-lg overflow-x-auto"
+      className="col-span-4 md:col-span-3 lg:col-span-2 border border-gray rounded-tl-lg rounded-bl-lg overflow-x-auto w-full"
     >
-      <div className="">
+      <div>
         <div className="gantt-task-row h-[35px]"></div>
         <div className="gantt-task-row h-[35px]"></div>
         <div className="gantt-task-row h-[35px]"></div>
       </div>
 
-      <div className="border-t border-gray overflow-x-auto">
+      <div className="w-full border-t border-gray overflow-x-auto">
         {tasks &&
           tasks.map((tsk, i) => (
             <div
               key={`${i}-${tsk.id}-${tsk.name}`}
-              className="gantt-task-row flex justify-start h-[35px]"
+              className="gantt-task-row flex justify-start h-[35px] w-full"
             >
               {tsk.notebook ? (
-                <div className="flex justify-start items-center ">
+                <div className="flex justify-start items-center w-full">
                   <FontAwesomeIcon
                     className="w-2 h-2 md:w-3 md:h-3 mx-2 md:mx-4 rotate-90"
                     icon={faPlay}
@@ -70,11 +70,11 @@ export default function Tasks({ tasks, setTasks, setTaskDurations }) {
                       outline: "none",
                       background: "none",
                     }}
-                    className="h4tag font-bold"
+                    className="h4tag font-bold w-full"
                   />
                 </div>
               ) : (
-                <div className="flex flex-col items-center justify-center">
+                <div className="w-full flex flex-col items-center justify-center">
                   <FontAwesomeIcon
                     className="w-3 h-3 hidden"
                     icon={faPlay}
@@ -88,7 +88,7 @@ export default function Tasks({ tasks, setTasks, setTaskDurations }) {
                       outline: "none",
                       background: "none",
                     }}
-                    className="font-bold h5tag pl-[45px] "
+                    className="w-full font-bold h5tag pl-[45px]"
                   />
                 </div>
               )}
