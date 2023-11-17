@@ -68,12 +68,6 @@ const notebookState = {
     //   end: "2023-07-15",
     //   task: 2,
     // },
-    // {
-    //   id: 3,
-    //   start: "2023-08-11",
-    //   end: "2023-08-18",
-    //   task: 4,
-    // },
   ],
 
   loginstatus: false,
@@ -81,12 +75,6 @@ const notebookState = {
 
 const notebookReducer = (state = notebookState, action) => {
   switch (action.type) {
-    // case "notebookList/changeNotebookListId":
-    //   return {
-    //     ...state,
-    //     notebookList: [...state.notebookList, action.payload],
-    //   };
-
     case "notebookList/addNotebook":
       return {
         ...state,
@@ -127,7 +115,7 @@ const notebookReducer = (state = notebookState, action) => {
 
     case "notebookList/deleteSubNotebook":
       const { notebookId, subId } = action.payload;
-      const LL = state.notebookList.map((notebook) => {
+      const newdeleteSubNotebook = state.notebookList.map((notebook) => {
         if (notebook.id === notebookId) {
           const updatedSubNotebook = notebook.subNotebook.filter(
             (subNote) => subNote.subId !== subId
@@ -141,7 +129,7 @@ const notebookReducer = (state = notebookState, action) => {
       });
       return {
         ...state,
-        notebookList: LL,
+        notebookList: newdeleteSubNotebook,
       };
 
     case "notebookDisplaying/displayNumber":
@@ -189,7 +177,7 @@ const notebookReducer = (state = notebookState, action) => {
       };
 
     case "notebookList/setSubNobebookTitle":
-      const LLLLLL = state.notebookList.map((notebook) => {
+      const newsetSubNobebookTitle = state.notebookList.map((notebook) => {
         if (notebook.id === action.payload.notebookId) {
           return {
             ...notebook,
@@ -206,11 +194,9 @@ const notebookReducer = (state = notebookState, action) => {
         }
         return notebook;
       });
-      console.log(action.payload);
-      console.log(LLLLLL);
       return {
         ...state,
-        notebookList: LLLLLL,
+        notebookList: newsetSubNobebookTitle,
       };
 
     case "notebookList/setNobebookStartAndEndTime":
@@ -262,7 +248,7 @@ const notebookReducer = (state = notebookState, action) => {
       };
 
     case "notebookList/setNotebookEndTime":
-      const RE = state.notebookList.map((notebook) => {
+      const newsetNotebookEndTime = state.notebookList.map((notebook) => {
         if (notebook.id === action.payload.notebookId) {
           return {
             ...notebook,
@@ -273,11 +259,10 @@ const notebookReducer = (state = notebookState, action) => {
       });
       return {
         ...state,
-        notebookList: RE,
+        notebookList: newsetNotebookEndTime,
       };
 
     case "loginstatus/toggleloginstatus":
-      // console.log(action.payload);
       return {
         ...state,
         loginstatus: action.payload,

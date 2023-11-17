@@ -9,26 +9,29 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
   const displayNumberList = useSelector((state) => state.notebookDisplaying);
 
   const [task, setTask] = useState("");
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   useEffect(() => {
     if (
       notebookList.length === 0 ||
-      notebookList[displayNumberList.notebookId - 1].subNotebook.length === 0
+      notebookList[displayNumberList.notebookId - 1].subNotebook.length === 0 ||
+      !notebookList[displayNumberList.notebookId - 1].subNotebook[
+        displayNumberList.subNotebookId - 1
+      ]
     ) {
-      setStartDate(null);
-      setEndDate(null);
+      setStartDate("");
+      setEndDate("");
     } else {
       setStartDate(
         notebookList[displayNumberList.notebookId - 1].subNotebook[
           displayNumberList.subNotebookId - 1
-        ].subStart
+        ].subStart || ""
       );
       setEndDate(
         notebookList[displayNumberList.notebookId - 1].subNotebook[
           displayNumberList.subNotebookId - 1
-        ].subEnd
+        ].subEnd || ""
       );
     }
   }, [notebookList, displayNumberList]);
@@ -97,25 +100,26 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
           className="w-auto flex items-center flex-wrap lg:flex-nowrap md:whitespace-nowrap mb-3"
         >
           <p>Now Selected:&nbsp;</p>
-          <p className="flex flex-wrap md:flex-nowrap items-center">
-            <strong className="h44tag leading-4">
-              {notebookList.length === 0 ||
-              notebookList[displayNumberList.notebookId - 1].subNotebook
-                .length === 0
-                ? null
-                : notebookList[displayNumberList.notebookId - 1].subNotebook[
-                    displayNumberList.subNotebookId - 1
-                  ].subtitle}
-            </strong>
-            &nbsp;
+          <strong className="h44tag leading-4">
             {notebookList.length === 0 ||
             notebookList[displayNumberList.notebookId - 1].subNotebook
-              .length === 0 ? null : (
-              <p className="h5tag">
-                in {notebookList[displayNumberList.notebookId - 1].title}
-              </p>
-            )}
-          </p>
+              .length === 0 ||
+            !notebookList[displayNumberList.notebookId - 1].subNotebook[
+              displayNumberList.subNotebookId - 1
+            ]
+              ? null
+              : notebookList[displayNumberList.notebookId - 1].subNotebook[
+                  displayNumberList.subNotebookId - 1
+                ].subtitle}
+          </strong>
+          &nbsp;
+          {notebookList.length === 0 ||
+          notebookList[displayNumberList.notebookId - 1].subNotebook.length ===
+            0 ? null : (
+            <p className="h5tag">
+              in {notebookList[displayNumberList.notebookId - 1].title}
+            </p>
+          )}
         </div>
         <div className="2xl:flex">
           <div className="flex flex-col mb-3 lg:flex-row 2xl:mb-0">

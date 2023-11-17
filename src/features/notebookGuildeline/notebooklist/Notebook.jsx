@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useCallback } from "react";
+import React, { Fragment, useState, useCallback, useMemo } from "react";
 
 import SubNotebook from "./SubtitleNotebook.jsx";
 
@@ -25,7 +25,12 @@ function Notebook({ notebookName, index, noetebookid }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState(notebookName);
 
-  // console.log(notebookName);
+  const subnotebooklist = useMemo(() => {
+    return notebookList[index].subNotebook.map((subnotebook, subindex) => {
+      subnotebook.subId = subindex + 1;
+      return subnotebook;
+    });
+  }, [notebookList[index].subNotebook]);
 
   function handleSave() {
     setIsEditing(false);
@@ -76,18 +81,6 @@ function Notebook({ notebookName, index, noetebookid }) {
     const maxDateString = findMaxDateString(notebookList[index].subNotebook);
     dispatch(setNotebookEndTime(index + 1, maxDateString));
   };
-
-  // useEffect(() => {
-  //   const maxDateString = findMaxDateString(notebookList[id].subNotebook);
-  //   dispatch(setNotebookEndTime(id + 1, maxDateString));
-  // }, [notebookList[id].subNotebook]);
-
-  // useEffect(() => {
-  //   notebookList[id].subNotebook.map((subnotebook, index) => {
-  //     subnotebook.subId = index + 1;
-  //     return subnotebook;
-  //   });
-  // });
 
   return (
     <Fragment>
@@ -145,22 +138,21 @@ function Notebook({ notebookName, index, noetebookid }) {
       </section>
       {openToggle && (
         <div className="flex flex-col justify-between w-full mb-4">
-          {notebookList[index].subNotebook.map(
-            (subtitleNotebook, subtitleindex) => {
-              return (
-                <div
-                  className="flex items-center justify-between h-[32px] w-full"
-                  key={subtitleNotebook.subId}
-                >
-                  <SubNotebook
-                    subNotebookName={subtitleNotebook.subtitle}
-                    NotebookId={index}
-                    subId={subtitleindex + 1}
-                  />
-                </div>
-              );
-            }
-          )}
+          {subnotebooklist.map((subtitleNotebook, subtitleindex) => {
+            return (
+              <div
+                className="flex items-center justify-between h-[32px] w-full"
+                // key={subtitleNotebook.subId}
+                key={`${subtitleNotebook.subId}-${index}`}
+              >
+                <SubNotebook
+                  subNotebookName={subtitleNotebook.subtitle}
+                  NotebookId={index}
+                  subId={subtitleindex + 1}
+                />
+              </div>
+            );
+          })}
         </div>
       )}
     </Fragment>

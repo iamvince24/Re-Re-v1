@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Notebook from "../notebooklist/Notebook";
@@ -6,11 +6,7 @@ import ToogleButton from "../../../component/button/ToogleButton";
 
 import { getCurrentDateTime } from "../../../utils/getCurrentDateTime";
 
-import {
-  addNotebook,
-  // toggleNoteTimelineAction,
-  toggleloginstatus,
-} from "../../../redux/actions";
+import { addNotebook, toggleloginstatus } from "../../../redux/actions";
 
 import { logout, auth } from "../../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -19,17 +15,13 @@ import { useNavigate } from "react-router-dom";
 function NotebookGuildeline(props) {
   const notebookList = useSelector((state) => state.notebookList);
 
-  const [list, setList] = useState(notebookList);
-
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setList(
-      notebookList.map((notebook, index) => {
-        notebook.id = index + 1;
-        return notebook;
-      })
-    );
+  const notebooklist = useMemo(() => {
+    return notebookList.map((notebook, index) => {
+      notebook.id = index + 1;
+      return notebook;
+    });
   }, [notebookList]);
 
   const handleAddNotebook = () => {
@@ -50,14 +42,13 @@ function NotebookGuildeline(props) {
     dispatch(toggleloginstatus(false));
   };
 
-  if (loading) {
-    dispatch(toggleloginstatus(true));
-    return;
-  }
-
-  if (!user) return navigate("/");
-
-  // console.log(list);
+  useEffect(() => {
+    if (loading) {
+      dispatch(toggleloginstatus(true));
+    } else if (!user) {
+      navigate("/");
+    }
+  }, [loading, user]);
 
   return (
     <Fragment>
@@ -91,7 +82,7 @@ function NotebookGuildeline(props) {
             className="flex flex-col justify-start items-center w-full px-1"
             id="notebookList"
           >
-            {list.map((notebook, index) => {
+            {notebooklist.map((notebook, index) => {
               return (
                 <Notebook
                   notebookName={notebook.title}

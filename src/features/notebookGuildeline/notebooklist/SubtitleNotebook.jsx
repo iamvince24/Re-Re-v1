@@ -24,7 +24,6 @@ function SubNotebook({ subNotebookName, NotebookId, subId }) {
   }
 
   function handleditedName(e) {
-    setEditedName(e.target.value);
     dispatch(
       setSubNobebookTitle(
         displayNumberList.notebookId,
@@ -32,6 +31,7 @@ function SubNotebook({ subNotebookName, NotebookId, subId }) {
         e.target.value
       )
     );
+    setEditedName(e.target.value);
   }
 
   function handleDisplayNumber() {
