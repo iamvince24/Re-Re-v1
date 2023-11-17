@@ -81,6 +81,12 @@ const notebookState = {
 
 const notebookReducer = (state = notebookState, action) => {
   switch (action.type) {
+    // case "notebookList/changeNotebookListId":
+    //   return {
+    //     ...state,
+    //     notebookList: [...state.notebookList, action.payload],
+    //   };
+
     case "notebookList/addNotebook":
       return {
         ...state,
@@ -200,6 +206,8 @@ const notebookReducer = (state = notebookState, action) => {
         }
         return notebook;
       });
+      console.log(action.payload);
+      console.log(LLLLLL);
       return {
         ...state,
         notebookList: LLLLLL,

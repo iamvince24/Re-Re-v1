@@ -1,5 +1,5 @@
-import React, { Fragment, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { Fragment, useState } from "react";
+// import { useSelector } from "react-redux";
 
 import NotebookGuildeline from "../../features/notebookGuildeline/guild/NotebookGuildeline";
 import NotebookEditer from "../../features/notebookEditing/NotebookEditing";
@@ -7,6 +7,10 @@ import GanttChart from "../../features/ganttchart/guild/GanttChart";
 
 function Application() {
   const [toggle, setToggle] = useState(true);
+  // const [notebookFocusing, setNotebookFocusing] = useState({
+  //   notebookId: 1,
+  //   subNotebookId: 1,
+  // });
 
   return (
     <Fragment>

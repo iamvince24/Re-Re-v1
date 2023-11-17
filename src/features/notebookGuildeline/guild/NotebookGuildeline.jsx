@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Notebook from "../notebooklist/Notebook";
@@ -8,7 +8,7 @@ import { getCurrentDateTime } from "../../../utils/getCurrentDateTime";
 
 import {
   addNotebook,
-  toggleNoteTimelineAction,
+  // toggleNoteTimelineAction,
   toggleloginstatus,
 } from "../../../redux/actions";
 
@@ -18,10 +18,19 @@ import { useNavigate } from "react-router-dom";
 
 function NotebookGuildeline(props) {
   const notebookList = useSelector((state) => state.notebookList);
-  const toggleNoteTimelineMode = useSelector(
-    (state) => state.toggleNoteTimeline
-  );
+
+  const [list, setList] = useState(notebookList);
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setList(
+      notebookList.map((notebook, index) => {
+        notebook.id = index + 1;
+        return notebook;
+      })
+    );
+  }, [notebookList]);
 
   const handleAddNotebook = () => {
     dispatch(
@@ -47,6 +56,8 @@ function NotebookGuildeline(props) {
   }
 
   if (!user) return navigate("/");
+
+  // console.log(list);
 
   return (
     <Fragment>
@@ -80,12 +91,13 @@ function NotebookGuildeline(props) {
             className="flex flex-col justify-start items-center w-full px-1"
             id="notebookList"
           >
-            {notebookList.map((notebook, index) => {
+            {list.map((notebook, index) => {
               return (
                 <Notebook
                   notebookName={notebook.title}
                   key={notebook.id}
-                  id={index}
+                  index={index}
+                  noetebookid={index + 1}
                 />
               );
             })}

@@ -23,6 +23,17 @@ function SubNotebook({ subNotebookName, NotebookId, subId }) {
     setEditedName(editedName);
   }
 
+  function handleditedName(e) {
+    setEditedName(e.target.value);
+    dispatch(
+      setSubNobebookTitle(
+        displayNumberList.notebookId,
+        displayNumberList.subNotebookId,
+        e.target.value
+      )
+    );
+  }
+
   function handleDisplayNumber() {
     dispatch(displayNumber(NotebookId + 1, subId));
   }
@@ -41,17 +52,8 @@ function SubNotebook({ subNotebookName, NotebookId, subId }) {
         {isEditing ? (
           <input
             type="text"
-            value={editedName}
-            onChange={(e) => {
-              setEditedName(e.target.value);
-              dispatch(
-                setSubNobebookTitle(
-                  displayNumberList.notebookId,
-                  displayNumberList.subNotebookId,
-                  e.target.value
-                )
-              );
-            }}
+            value={subNotebookName}
+            onChange={handleditedName}
             onBlur={handleSave}
             autoFocus
             className="h-4/5 w-full font-bold border rounded px-3 py-1 mr-2 focus:outline-none focus:border-white"
@@ -70,7 +72,7 @@ function SubNotebook({ subNotebookName, NotebookId, subId }) {
             }}
             onClick={handleDisplayNumber}
           >
-            {editedName}
+            {subNotebookName}
           </button>
         )}
       </div>
