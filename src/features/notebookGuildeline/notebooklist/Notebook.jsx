@@ -1,18 +1,22 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useCallback, useMemo } from "react";
+
+import SubNotebook from "./SubtitleNotebook.jsx";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
-import NotebookSubtitle from "./NotebookSubtitle";
+import { getCurrentDateTime } from "../../../utils/getCurrentDateTime.js";
 
 import { useSelector, useDispatch } from "react-redux";
-import { deleteNotebook } from "../../../redux/actions";
-import { setNotebooktitle } from "../../../redux/actions";
-import { addSubNotebook } from "../../../redux/actions";
-import { displayNumber } from "../../../redux/actions";
-import { setNotebookEndTime } from "../../../redux/actions";
+import {
+  deleteNotebook,
+  setNotebooktitle,
+  addSubNotebook,
+  displayNumber,
+  setNotebookEndTime,
+} from "../../../redux/actions";
 
-function Notebook({ notebookName, notebookListArray, id }) {
+function Notebook({ notebookName, index, noetebookid }) {
   const notebookList = useSelector((state) => state.notebookList);
   const displayNumberList = useSelector((state) => state.notebookDisplaying);
   const dispatch = useDispatch();
@@ -21,26 +25,12 @@ function Notebook({ notebookName, notebookListArray, id }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState(notebookName);
 
-  const getCurrentDateTime = () => {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, "0");
-    const day = String(now.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
-
-  notebookList.map((notebook, index) => {
-    notebook.id = index + 1;
-    return notebook;
-  });
-
-  function changeToggle() {
-    setOpenToggle(!openToggle);
-  }
-
-  function handleDoubleClick() {
-    setIsEditing(true);
-  }
+  const subnotebooklist = useMemo(() => {
+    return notebookList[index].subNotebook.map((subnotebook, subindex) => {
+      subnotebook.subId = subindex + 1;
+      return subnotebook;
+    });
+  }, [notebookList[index].subNotebook]);
 
   function handleSave() {
     setIsEditing(false);
@@ -49,17 +39,12 @@ function Notebook({ notebookName, notebookListArray, id }) {
 
   function handleditedName(e) {
     setEditedName(e.target.value);
-    dispatch(setNotebooktitle(id + 1, e.target.value));
-  }
-
-  function handleKeyDown(e) {
-    if (e.key === "Enter") {
-      handleSave();
-    }
+    dispatch(setNotebooktitle(index + 1, e.target.value));
   }
 
   const handleDeleteNotebook = (index) => {
     dispatch(deleteNotebook(index));
+    // console.log(index);
     let a = displayNumberList.notebookId - 1;
     let b = displayNumberList.subNotebookId - 1;
 
@@ -73,41 +58,29 @@ function Notebook({ notebookName, notebookListArray, id }) {
     dispatch(displayNumber(a, b));
   };
 
+  const findMaxDateString = useCallback((subNotebooks) => {
+    const notebookTimeArray = subNotebooks.map(
+      (subnotebook) => subnotebook.subEnd
+    );
+    return notebookTimeArray.reduce(
+      (max, dateString) => (dateString > max ? dateString : max),
+      ""
+    );
+  }, []);
+
   const handleAddSubNotebook = () => {
     dispatch(
       addSubNotebook(
-        id + 1,
+        index + 1,
         notebookName,
-        notebookList[id].subNotebook.length + 1,
+        notebookList[index].subNotebook.length + 1,
         getCurrentDateTime()
       )
     );
 
-    let notebookTimeArray = [];
-
-    notebookList[id].subNotebook.map((subnotebook) => {
-      notebookTimeArray.push(subnotebook.subEnd);
-      return subnotebook;
-    });
-
-    var maxDateString = notebookTimeArray.reduce(function (max, dateString) {
-      return dateString > max ? dateString : max;
-    }, "");
-
-    dispatch(setNotebookEndTime(id + 1, maxDateString));
+    const maxDateString = findMaxDateString(notebookList[index].subNotebook);
+    dispatch(setNotebookEndTime(index + 1, maxDateString));
   };
-
-  useEffect(() => {
-    let notebookTimeArray = [];
-    notebookList[id].subNotebook.map((subnotebook) => {
-      notebookTimeArray.push(subnotebook.subEnd);
-      return subnotebook;
-    });
-    var maxDateString = notebookTimeArray.reduce(function (max, dateString) {
-      return dateString > max ? dateString : max;
-    }, "");
-    dispatch(setNotebookEndTime(id + 1, maxDateString));
-  }, []);
 
   return (
     <Fragment>
@@ -119,25 +92,33 @@ function Notebook({ notebookName, notebookListArray, id }) {
                 openToggle ? "rotate-90" : ""
               } hover:scale-125`}
               icon={faPlay}
-              onClick={changeToggle}
+              onClick={() => {
+                setOpenToggle(!openToggle);
+              }}
             ></FontAwesomeIcon>
             {isEditing ? (
               <input
                 type="text"
-                value={editedName}
+                value={notebookName}
                 onChange={handleditedName}
                 onBlur={handleSave}
                 autoFocus
-                className="font-bold border rounded px-3 py-1 focus:outline-none  focus:border-white h-4/5"
-                style={{ minWidth: "100px" }}
-                onKeyDown={handleKeyDown}
+                className="w-full font-bold border rounded px-3 py-1 focus:outline-none focus:border-white"
+                // style={{ minWidth: "100px" }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSave();
+                  }
+                }}
               />
             ) : (
               <p
                 className="h3tag md:text-[16px] lg:h4tag font-bold leading-5"
-                onDoubleClick={handleDoubleClick}
+                onDoubleClick={() => {
+                  setIsEditing(true);
+                }}
               >
-                {editedName}
+                {notebookName}
               </p>
             )}
           </div>
@@ -150,13 +131,29 @@ function Notebook({ notebookName, notebookListArray, id }) {
         </div>
         <button
           className="text-[20px] text-gray-500 font-medium mb-[4px] hover:font-black active:text-gray"
-          onClick={() => handleDeleteNotebook(id)}
+          onClick={() => handleDeleteNotebook(index)}
         >
           ×
         </button>
       </section>
       {openToggle && (
-        <NotebookSubtitle notebookSubtitleList={notebookList[id]} id={id} />
+        <div className="flex flex-col justify-between w-full mb-4">
+          {subnotebooklist.map((subtitleNotebook, subtitleindex) => {
+            return (
+              <div
+                className="flex items-center justify-between h-[32px] w-full"
+                // key={subtitleNotebook.subId}
+                key={`${subtitleNotebook.subId}-${index}`}
+              >
+                <SubNotebook
+                  subNotebookName={subtitleNotebook.subtitle}
+                  NotebookId={index}
+                  subId={subtitleindex + 1}
+                />
+              </div>
+            );
+          })}
+        </div>
       )}
     </Fragment>
   );

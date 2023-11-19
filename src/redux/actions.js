@@ -50,7 +50,7 @@ export const addSubNotebook = (
       subNotebook: [
         {
           subId: subId,
-          subtitle: "Default Notebook",
+          subtitle: "Default SubNotebook",
           subStart: subCreateTime,
           subEnd: subCreateTime,
           content: "",

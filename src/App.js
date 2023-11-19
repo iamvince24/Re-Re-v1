@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 
 function App() {
   const loginstatusState = useSelector((state) => state.loginstatus);
-  console.log(loginstatusState);
+  // console.log(loginstatusState);
 
   return (
     <Router>

@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addtotalnotebooks } from "../../../redux/actions.js";
 import { addTotalNotebooksDurations } from "../../../redux/actions.js";
 
-function GanttChart() {
+function GanttChart(props) {
   const notebookList = useSelector((state) => state.notebookList);
   const totaltasksArray = useSelector((state) => state.totaltasks);
   const totaltaskDurationsArray = useSelector(
