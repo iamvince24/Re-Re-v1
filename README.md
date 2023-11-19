@@ -1,4 +1,10 @@
-### Re-Re is a tool for Recording and Reviewing your learning
+# Re-Re is a tool for Recording and Reviewing your learning
+
+#### Accounts for testing：
+
+Email：test@gmail.com
+
+Password：test123
 
 ## Overview
 
