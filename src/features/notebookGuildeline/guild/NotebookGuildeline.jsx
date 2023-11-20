@@ -12,6 +12,9 @@ import { logout, auth } from "../../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 
+import { database } from "../../../firebase";
+import { ref, get } from "firebase/database";
+
 function NotebookGuildeline(props) {
   const notebookList = useSelector((state) => state.notebookList);
 
