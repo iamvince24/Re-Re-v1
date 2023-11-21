@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo } from "react";
+import React, { Fragment, useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Notebook from "../notebooklist/Notebook";
@@ -6,22 +6,48 @@ import ToogleButton from "../../../component/button/ToogleButton";
 
 import { getCurrentDateTime } from "../../../utils/getCurrentDateTime";
 
-import { addNotebook, toggleloginstatus } from "../../../redux/actions";
+import {
+  addNotebook,
+  toggleloginstatus,
+  updateNotebookList,
+} from "../../../redux/actions";
 
 import { logout, auth } from "../../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 
 import { database } from "../../../firebase";
-import { ref, get } from "firebase/database";
+import { ref, get, set } from "firebase/database";
 
 function NotebookGuildeline(props) {
   const notebookList = useSelector((state) => state.notebookList);
 
   const dispatch = useDispatch();
 
-  const notebooklist = useMemo(() => {
-    return notebookList.map((notebook, index) => {
+  const handleLocalEdit = (updatedNotebook) => {
+    const UId = user.uid;
+
+    // Update local state
+    dispatch(updateNotebookList(updatedNotebook));
+
+    // Update Firebase database
+    const notebookListRef = ref(database, `${UId}`);
+
+    get(notebookListRef).then((snapshot) => {
+      const notebookExists = snapshot.exists();
+
+      if (notebookExists) {
+        // Update existing notebook data
+        set(notebookListRef, notebookListIndex);
+      } else {
+        // Add a new notebook entry with the provided UID
+        set(notebookListRef, notebookListIndex);
+      }
+    });
+  };
+
+  let notebookListIndex = useMemo(() => {
+    return notebookList?.map((notebook, index) => {
       notebook.id = index + 1;
       return notebook;
     });
@@ -41,6 +67,7 @@ function NotebookGuildeline(props) {
   const navigate = useNavigate();
 
   const handleToggleLoginStatus = () => {
+    handleLocalEdit();
     logout();
     dispatch(toggleloginstatus(false));
   };
@@ -85,7 +112,7 @@ function NotebookGuildeline(props) {
             className="flex flex-col justify-start items-center w-full px-1"
             id="notebookList"
           >
-            {notebooklist.map((notebook, index) => {
+            {notebookListIndex.map((notebook, index) => {
               return (
                 <Notebook
                   notebookName={notebook.title}
