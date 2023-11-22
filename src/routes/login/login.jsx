@@ -7,7 +7,7 @@ import { toggleloginstatus, fetchNotebookList } from "../../redux/actions";
 import { auth, signInWithGoogle } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { ref, get } from "firebase/database";
 import { database } from "../../firebase";
@@ -17,19 +17,16 @@ function Login() {
   const [password, setPassword] = useState("test123");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
-
-  const loginstatusState = useSelector((state) => state.loginstatus);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (loading) {
-      // maybe trigger a loading screen
       return;
     }
 
     if (user) {
       const UId = user.uid;
-      const notebookListRef = ref(database, `${UId}`); // 使用 ref 方法
+      const notebookListRef = ref(database, `${UId}`);
 
       get(notebookListRef).then((snapshot) => {
         const data = snapshot.val();
@@ -81,6 +78,8 @@ function Login() {
           );
         }
       });
+
+      window.localStorage.setItem("uid", user.uid);
 
       dispatch(toggleloginstatus(true));
       navigate("/application");

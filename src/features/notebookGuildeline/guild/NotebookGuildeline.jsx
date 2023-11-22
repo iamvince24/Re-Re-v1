@@ -1,4 +1,10 @@
-import React, { Fragment, useState, useEffect, useMemo } from "react";
+import React, {
+  Fragment,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Notebook from "../notebooklist/Notebook";
@@ -10,6 +16,7 @@ import {
   addNotebook,
   toggleloginstatus,
   updateNotebookList,
+  fetchNotebookList,
 } from "../../../redux/actions";
 
 import { logout, auth } from "../../../firebase";
@@ -21,39 +28,13 @@ import { ref, get, set } from "firebase/database";
 
 function NotebookGuildeline(props) {
   const notebookList = useSelector((state) => state.notebookList);
-
+  // const [init, setInit] = useState(notebookList);
+  const [user, loading] = useAuthState(auth);
+  const [Uid, setUid] = useState(window.localStorage.getItem("uid"));
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLocalEdit = (updatedNotebook) => {
-    const UId = user.uid;
-
-    // Update local state
-    dispatch(updateNotebookList(updatedNotebook));
-
-    // Update Firebase database
-    const notebookListRef = ref(database, `${UId}`);
-
-    get(notebookListRef).then((snapshot) => {
-      const notebookExists = snapshot.exists();
-
-      if (notebookExists) {
-        // Update existing notebook data
-        set(notebookListRef, notebookListIndex);
-      } else {
-        // Add a new notebook entry with the provided UID
-        set(notebookListRef, notebookListIndex);
-      }
-    });
-  };
-
-  let notebookListIndex = useMemo(() => {
-    return notebookList?.map((notebook, index) => {
-      notebook.id = index + 1;
-      return notebook;
-    });
-  }, [notebookList]);
-
-  const handleAddNotebook = () => {
+  const handleAddNotebook = useCallback(() => {
     dispatch(
       addNotebook(
         "Default Notebook",
@@ -61,24 +42,70 @@ function NotebookGuildeline(props) {
         getCurrentDateTime()
       )
     );
-  };
+  }, [dispatch, notebookList.length]);
 
-  const [user, loading] = useAuthState(auth);
-  const navigate = useNavigate();
+  const notebookListIndex = useMemo(() => {
+    return notebookList?.map((notebook, index) => ({
+      ...notebook,
+      id: index + 1,
+    }));
+  }, [notebookList]);
 
-  const handleToggleLoginStatus = () => {
+  const handleLocalEdit = useCallback(
+    (updatedNotebook) => {
+      const action = updateNotebookList(updatedNotebook);
+      dispatch(action);
+
+      // Update Firebase database
+      const notebookListRef = ref(database, Uid);
+
+      get(notebookListRef).then((snapshot) => {
+        const notebookExists = snapshot.exists();
+
+        if (notebookExists) {
+          set(notebookListRef, notebookListIndex);
+        } else {
+          set(notebookListRef, notebookListIndex);
+        }
+      });
+    },
+    [dispatch, Uid, notebookListIndex]
+  );
+
+  const handleToggleLoginStatus = useCallback(() => {
     handleLocalEdit();
     logout();
     dispatch(toggleloginstatus(false));
-  };
+    window.localStorage.removeItem("uid");
+  }, [dispatch, handleLocalEdit, logout]);
 
   useEffect(() => {
+    const notebookListRef = ref(database, Uid);
+
+    if (notebookListRef) {
+      get(notebookListRef).then((snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          dispatch(fetchNotebookList(data));
+        }
+      });
+    }
+
     if (loading) {
       dispatch(toggleloginstatus(true));
     } else if (!user) {
       navigate("/");
     }
-  }, [loading, user]);
+  }, [dispatch, Uid, loading, user, navigate]);
+
+  window.addEventListener("beforeunload", function (event) {
+    var confirmationMessage = "確定要離開嗎？";
+    // Standard for most browsers
+    event.returnValue = confirmationMessage;
+    handleLocalEdit();
+    // For some older browsers
+    return confirmationMessage;
+  });
 
   return (
     <Fragment>
@@ -112,16 +139,18 @@ function NotebookGuildeline(props) {
             className="flex flex-col justify-start items-center w-full px-1"
             id="notebookList"
           >
-            {notebookListIndex.map((notebook, index) => {
-              return (
-                <Notebook
-                  notebookName={notebook.title}
-                  key={notebook.id}
-                  index={index}
-                  noetebookid={index + 1}
-                />
-              );
-            })}
+            {notebookListIndex
+              ? notebookListIndex.map((notebook, index) => {
+                  return (
+                    <Notebook
+                      notebookName={notebook.title}
+                      key={notebook.id}
+                      index={index}
+                      noetebookid={index + 1}
+                    />
+                  );
+                })
+              : null}
           </div>
         </div>
         <div className="flex flex-col w-full mt-8">

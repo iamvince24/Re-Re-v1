@@ -38,6 +38,29 @@ const notebookState = {
     //     },
     //   ],
     // },
+    {
+      id: 1,
+      title: "Loading",
+      start: "2023-09-21",
+      end: "2023-10-25",
+      subNotebook: [
+        {
+          subId: 1,
+          subtitle: "Loading",
+          subStart: "2023-09-10",
+          subEnd: "2023-10-29",
+          content: `A tree is a non-linear abstract data type with a hierarchy-based structure. It consists of nodes (where the data is stored) that are connected via links. The tree data structure stems from a single node called a root node and has subtrees connected to the root.`,
+        },
+        {
+          subId: 2,
+          subtitle: "Loading",
+          subStart: "2023-09-01",
+          subEnd: "2023-09-22",
+          content:
+            "A graph is an abstract data type (ADT) that consists of a set of objects that are connected to each other via links. These objects are called vertices and the links are called edges.",
+        },
+      ],
+    },
   ],
 
   notebookDisplaying: { notebookId: 1, subNotebookId: 1 },

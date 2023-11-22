@@ -27,7 +27,7 @@ function GanttChart(props) {
     let max = [];
     let min = [];
 
-    notebookList.map((notebook) => {
+    notebookList?.map((notebook) => {
       notebook.subNotebook.map((subnote) => {
         max.push(subnote.subEnd);
         min.push(subnote.subStart);
@@ -80,7 +80,7 @@ function GanttChart(props) {
 
     let notebookdurationsarray = [];
 
-    for (let i = 0; i < notebookList.length; i++) {
+    for (let i = 0; i < notebookList?.length; i++) {
       count += 1;
       const notebookd = notebookList[i];
 

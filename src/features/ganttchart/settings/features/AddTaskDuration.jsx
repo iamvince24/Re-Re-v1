@@ -5,8 +5,8 @@ import { setNobebookStartAndEndTime } from "../../../../redux/actions";
 
 export default function AddTaskDuration({ tasks, setTaskDurations }) {
   const notebookList = useSelector((state) => state.notebookList);
-  const dispatch = useDispatch();
   const displayNumberList = useSelector((state) => state.notebookDisplaying);
+  const dispatch = useDispatch();
 
   const [task, setTask] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -35,6 +35,34 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
       );
     }
   }, [notebookList, displayNumberList]);
+
+  console.log(notebookList);
+  // useEffect(() => {
+  //   console.log(notebookList);
+  //   if (
+  //     // !notebookList &&
+  //     // !notebookList[
+  //     //   displayNumberList.notebookId - 1 < 0
+  //     //     ? 1
+  //     //     : displayNumberList.notebookId - 1
+  //     // ].subNotebook
+  //     notebookList === null
+  //   ) {
+  //     setStartDate("");
+  //     setEndDate("");
+  //   } else {
+  //     setStartDate(
+  //       notebookList[displayNumberList.notebookId - 1].subNotebook[
+  //         displayNumberList.subNotebookId - 1
+  //       ].subStart || ""
+  //     );
+  //     setEndDate(
+  //       notebookList[displayNumberList.notebookId - 1].subNotebook[
+  //         displayNumberList.subNotebookId - 1
+  //       ].subEnd || ""
+  //     );
+  //   }
+  // }, [notebookList, displayNumberList]);
 
   function onChange(e) {
     const { value, id } = e.target;
@@ -101,25 +129,34 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
         >
           <p>Now Selected:&nbsp;</p>
           <strong className="h44tag leading-4">
-            {notebookList.length === 0 ||
-            notebookList[displayNumberList.notebookId - 1].subNotebook
-              .length === 0 ||
-            !notebookList[displayNumberList.notebookId - 1].subNotebook[
+            {notebookList &&
+            notebookList.length > 0 &&
+            notebookList[displayNumberList.notebookId - 1] &&
+            notebookList[displayNumberList.notebookId - 1].subNotebook &&
+            notebookList[displayNumberList.notebookId - 1].subNotebook.length >
+              0 &&
+            notebookList[displayNumberList.notebookId - 1].subNotebook[
               displayNumberList.subNotebookId - 1
             ]
-              ? null
-              : notebookList[displayNumberList.notebookId - 1].subNotebook[
+              ? notebookList[displayNumberList.notebookId - 1].subNotebook[
                   displayNumberList.subNotebookId - 1
-                ].subtitle}
+                ].subtitle
+              : null}
           </strong>
           &nbsp;
-          {notebookList.length === 0 ||
-          notebookList[displayNumberList.notebookId - 1].subNotebook.length ===
-            0 ? null : (
+          {notebookList &&
+          notebookList.length > 0 &&
+          notebookList[displayNumberList.notebookId - 1] &&
+          notebookList[displayNumberList.notebookId - 1].subNotebook &&
+          notebookList[displayNumberList.notebookId - 1].subNotebook.length >
+            0 &&
+          notebookList[displayNumberList.notebookId - 1].subNotebook[
+            displayNumberList.subNotebookId - 1
+          ] ? (
             <p className="h5tag">
               in {notebookList[displayNumberList.notebookId - 1].title}
             </p>
-          )}
+          ) : null}
         </div>
         <div className="2xl:flex">
           <div className="flex flex-col mb-3 lg:flex-row 2xl:mb-0">
