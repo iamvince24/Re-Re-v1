@@ -1,3 +1,17 @@
+export const fetchNotebookList = (fetchNotebookList) => {
+  return {
+    type: "notebookList/fetchNotebookList",
+    payload: fetchNotebookList,
+  };
+};
+
+export const updateNotebookList = (updatedNotebook) => {
+  return {
+    type: "UPDATE_NOTEBOOK",
+    payload: updatedNotebook,
+  };
+};
+
 export const addNotebook = (newNotebookName, number, createTime) => {
   return {
     type: "notebookList/addNotebook",

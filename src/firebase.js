@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
 
 import {
   GoogleAuthProvider,
@@ -32,6 +33,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+const database = getDatabase(app);
+
 const googleProvider = new GoogleAuthProvider();
 
 const signInWithGoogle = async () => {
@@ -40,8 +43,8 @@ const signInWithGoogle = async () => {
     const user = res.user;
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
-    console.log(docs);
-    console.log(docs.docs);
+    // console.log(docs);
+    // console.log(docs.docs);
     if (docs.docs.length === 0) {
       await addDoc(collection(db, "users"), {
         uid: user.uid,
@@ -98,6 +101,7 @@ const logout = () => {
 export {
   auth,
   db,
+  database,
   signInWithGoogle,
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
