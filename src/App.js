@@ -3,7 +3,7 @@ import React from "react";
 
 import "./App.css";
 
-import Navigation from "./routes/navigation/Navigation";
+import Navigation from "./routes/navigation/Navigation.jsx";
 import Home from "./routes/home/Home";
 import Login from "./routes/login/Login";
 import SignUp from "./routes/signup/Signup";
