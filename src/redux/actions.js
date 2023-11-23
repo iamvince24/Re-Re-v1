@@ -1,14 +1,14 @@
+export const updateNotebookList = (updatedNotebook) => {
+  return {
+    type: "UpdateNotebook",
+    payload: updatedNotebook,
+  };
+};
+
 export const fetchNotebookList = (fetchNotebookList) => {
   return {
     type: "notebookList/fetchNotebookList",
     payload: fetchNotebookList,
-  };
-};
-
-export const updateNotebookList = (updatedNotebook) => {
-  return {
-    type: "UPDATE_NOTEBOOK",
-    payload: updatedNotebook,
   };
 };
 

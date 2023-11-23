@@ -5,7 +5,8 @@ import {
   getDayOfWeek,
   createFormattedDateFromStr,
   dayDiff,
-} from "../../../../helpers/dateFunctions";
+} from "../../../../utils/dateFunctions";
+
 import { months } from "../../../../assets/data/constants";
 
 export default function TimeTable({

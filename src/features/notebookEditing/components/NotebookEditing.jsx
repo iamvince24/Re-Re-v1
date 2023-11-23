@@ -1,8 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ReactMarkdown from "react-markdown";
-import { setNobebookContent } from "../../redux/actions";
-import { setNobebookStartAndEndTime } from "../../redux/actions";
+import { setNobebookContent } from "../../../redux/actions";
+import { setNobebookStartAndEndTime } from "../../../redux/actions";
 
 function NotebookEditer() {
   // 從 Store 取出的資料

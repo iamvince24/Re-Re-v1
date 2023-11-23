@@ -5,7 +5,7 @@ import SubNotebook from "./SubtitleNotebook.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
-import { getCurrentDateTime } from "../../../utils/getCurrentDateTime.js";
+import { getCurrentDateTime } from "../../../utils/utilities.js";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -14,7 +14,7 @@ import {
   addSubNotebook,
   displayNumber,
   setNotebookEndTime,
-} from "../../../redux/actions";
+} from "../../../redux/actions.js";
 
 function Notebook({ notebookName, index, noetebookid }) {
   const notebookList = useSelector((state) => state.notebookList);

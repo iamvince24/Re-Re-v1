@@ -1,19 +1,18 @@
-import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
 
-import Navigation from "./routes/navigation/navigation";
-import Home from "./routes/home/home";
-import Login from "./routes/login/login";
-import SignUp from "./routes/signup/signup";
-import Reset from "./routes/reset/reset";
+import "./App.css";
 
-import Application from "./routes/application/application";
+import Navigation from "./routes/navigation/Navigation";
+import Home from "./routes/home/Home";
+import Login from "./routes/login/Login";
+import SignUp from "./routes/signup/Signup";
+import Application from "./routes/application/Application";
 
 import { useSelector } from "react-redux";
 
 function App() {
-  const loginstatusState = useSelector((state) => state.loginstatus);
+  const loginstatusState = useSelector((state) => state.loginstatus); //
 
   return (
     <Router>
@@ -22,7 +21,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
-        <Route path="/reset" element={<Reset />} />
         <Route path="/application" element={<Application />} />
       </Routes>
     </Router>

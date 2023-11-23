@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
+import { firebaseConfig } from "./firebaseConfig";
 
 import {
   GoogleAuthProvider,
@@ -19,15 +20,6 @@ import {
   where,
   addDoc,
 } from "firebase/firestore";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCnbzCu1YSPc9GLmWKRy8KKKIWR0rE6yYY",
-  authDomain: "re-re-5134d.firebaseapp.com",
-  projectId: "re-re-5134d",
-  storageBucket: "re-re-5134d.appspot.com",
-  messagingSenderId: "860680060894",
-  appId: "1:860680060894:web:e8dd99a005a0e9d79fa74f",
-};
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);

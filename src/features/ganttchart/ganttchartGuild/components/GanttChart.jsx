@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { client } from "../../../utils/fetchWrapper.js";
+import { client } from "../../../../utils/utilities.js";
 
-import AddTaskDuration from "../settings/features/AddTaskDuration.jsx";
-import AddTask from "../settings/features/AddTask.jsx";
-import Grid from "../grid/Grid.jsx";
-import Settings from "../settings/Settings.jsx";
-import Tasks from "../grid/features/Tasks.jsx";
-import TimeRange from "../settings/features/TimeRange.jsx";
-import TimeTable from "../grid/features/TimeTable.jsx";
+import Chart from "../../ganttchartChart/components/ChartGuild.jsx";
+import Settings from "../../ganttchartSettings/components/SettingsGuild.jsx";
+import AddTaskDuration from "../../ganttchartSettings/components/AddTaskDuration.jsx";
+import TimeRange from "../../ganttchartSettings/components/TimeRange.jsx";
+import Tasks from "../../ganttchartChart/components/Tasks.jsx";
+import TimeTable from "../../ganttchartChart/components/TimeTable.jsx";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { addtotalnotebooks } from "../../../redux/actions.js";
-import { addTotalNotebooksDurations } from "../../../redux/actions.js";
+import { addtotalnotebooks } from "../../../../redux/actions.js";
+import { addTotalNotebooksDurations } from "../../../../redux/actions.js";
 
 function GanttChart(props) {
   const notebookList = useSelector((state) => state.notebookList);
@@ -129,7 +128,6 @@ function GanttChart(props) {
       className="md:col-span-7 lg:col-span-8 bg-bgGray bg-opacity-20 rounded-xl border-gray border-[1px] md:border-0"
     >
       <Settings>
-        <AddTask setTasks={setTasks} />
         <AddTaskDuration
           tasks={totaltasksArray}
           setTaskDurations={setTaskDurations}
@@ -137,7 +135,7 @@ function GanttChart(props) {
         <TimeRange timeRange={timeRange} setTimeRange={setTimeRange} />
       </Settings>
 
-      <Grid>
+      <Chart>
         <Tasks
           tasks={totaltasksArray}
           setTasks={setTasks}
@@ -149,7 +147,7 @@ function GanttChart(props) {
           taskDurations={totaltaskDurationsArray}
           setTaskDurations={setTaskDurations}
         />
-      </Grid>
+      </Chart>
     </div>
   );
 }

@@ -36,34 +36,6 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
     }
   }, [notebookList, displayNumberList]);
 
-  console.log(notebookList);
-  // useEffect(() => {
-  //   console.log(notebookList);
-  //   if (
-  //     // !notebookList &&
-  //     // !notebookList[
-  //     //   displayNumberList.notebookId - 1 < 0
-  //     //     ? 1
-  //     //     : displayNumberList.notebookId - 1
-  //     // ].subNotebook
-  //     notebookList === null
-  //   ) {
-  //     setStartDate("");
-  //     setEndDate("");
-  //   } else {
-  //     setStartDate(
-  //       notebookList[displayNumberList.notebookId - 1].subNotebook[
-  //         displayNumberList.subNotebookId - 1
-  //       ].subStart || ""
-  //     );
-  //     setEndDate(
-  //       notebookList[displayNumberList.notebookId - 1].subNotebook[
-  //         displayNumberList.subNotebookId - 1
-  //       ].subEnd || ""
-  //     );
-  //   }
-  // }, [notebookList, displayNumberList]);
-
   function onChange(e) {
     const { value, id } = e.target;
 

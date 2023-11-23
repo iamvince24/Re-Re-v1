@@ -7,10 +7,10 @@ import React, {
 } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import Notebook from "../notebooklist/Notebook";
-import ToogleButton from "../../../component/button/ToogleButton";
+import Notebook from "./Notebook";
+import ToogleButton from "../../../components/button/ToogleButton";
 
-import { getCurrentDateTime } from "../../../utils/getCurrentDateTime";
+import { getCurrentDateTime } from "../../../utils/utilities";
 
 import {
   addNotebook,
@@ -28,7 +28,6 @@ import { ref, get, set } from "firebase/database";
 
 function NotebookGuildeline(props) {
   const notebookList = useSelector((state) => state.notebookList);
-  // const [init, setInit] = useState(notebookList);
   const [user, loading] = useAuthState(auth);
   const [Uid, setUid] = useState(window.localStorage.getItem("uid"));
   const navigate = useNavigate();

@@ -1,12 +1,11 @@
 import React, { Fragment, useState } from "react";
 
-import NotebookGuildeline from "../../features/notebookGuildeline/guild/NotebookGuildeline";
-import NotebookEditer from "../../features/notebookEditing/NotebookEditing";
-import GanttChart from "../../features/ganttchart/guild/GanttChart";
+import NotebookGuildeline from "../../features/notebookGuildeline/components/NotebookGuildeline";
+import NotebookEditer from "../../features/notebookEditing/components/NotebookEditing";
+import GanttChart from "../../features/ganttchart/ganttchartGuild/components/GanttChart";
 
 function Application() {
   const [toggle, setToggle] = useState(true);
-
   const [loaded, setLoaded] = useState(false);
 
   return (
