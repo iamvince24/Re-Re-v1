@@ -3,11 +3,11 @@ import React from "react";
 
 import "./App.css";
 
-import Navigation from "./routes/navigation/Navigation.jsx";
-import Home from "./routes/home/Home";
-import Login from "./routes/login/Login";
-import SignUp from "./routes/signup/Signup";
-import Application from "./routes/application/Application";
+import Navigation from "./routes/navigation/navigation.jsx";
+import Home from "./routes/home/home.jsx";
+import Login from "./routes/login/login.jsx";
+import SignUp from "./routes/signup/signup.jsx";
+import Application from "./routes/application/application.jsx";
 
 import { useSelector } from "react-redux";
 
