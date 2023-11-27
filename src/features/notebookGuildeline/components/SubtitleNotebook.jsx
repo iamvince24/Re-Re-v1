@@ -1,18 +1,17 @@
 import React, { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
-
 import {
   deleteSubNotebook,
   displayNumber,
   setSubNobebookTitle,
 } from "../../../redux/actions";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
+
 function SubNotebook({ subNotebookName, NotebookId, subId }) {
   const displayNumberList = useSelector((state) => state.notebookDisplaying);
-
   const dispatch = useDispatch();
 
   const [isEditing, setIsEditing] = useState(false);
@@ -24,6 +23,7 @@ function SubNotebook({ subNotebookName, NotebookId, subId }) {
   }
 
   function handleditedName(e) {
+    setEditedName(e.target.value);
     dispatch(
       setSubNobebookTitle(
         displayNumberList.notebookId,
@@ -31,7 +31,6 @@ function SubNotebook({ subNotebookName, NotebookId, subId }) {
         e.target.value
       )
     );
-    setEditedName(e.target.value);
   }
 
   function handleDisplayNumber() {

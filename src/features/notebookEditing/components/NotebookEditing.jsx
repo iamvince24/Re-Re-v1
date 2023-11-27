@@ -1,31 +1,33 @@
 import React, { Fragment, useState, useEffect } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
+
 import ReactMarkdown from "react-markdown";
-import { setNobebookContent } from "../../../redux/actions";
-import { setNobebookStartAndEndTime } from "../../../redux/actions";
+
+import {
+  setNobebookContent,
+  setNobebookStartAndEndTime,
+} from "../../../redux/actions";
 
 function NotebookEditer() {
-  // 從 Store 取出的資料
   const notebookList = useSelector((state) => state.notebookList);
   const displayNumberList = useSelector((state) => state.notebookDisplaying);
 
-  // dispatch 設置
-  const dispatch = useDispatch();
-
-  // 編輯跟展示 note
-  const [displayNotebook, setDisplayNotebook] = useState(false);
-  function displayToggle() {
-    setDisplayNotebook(!displayNotebook);
-  }
-
-  //設定 子筆記 title
+  const [toggleNotebookDisplay, setTsoggleNotebookDisplay] = useState(false);
   const [subnotebooktitle, setSubNotebooktitle] = useState(null);
-
-  // 呈現 創建筆記的時間
   const [subnotebookCreateTime, setSubNotebookCreateTime] = useState(null);
 
-  // 編輯 note
   const [markdownText, setMarkdownText] = useState(null);
+
+  const [Value, setValue] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const dispatch = useDispatch();
+
+  function displayToggle() {
+    setTsoggleNotebookDisplay(!toggleNotebookDisplay);
+  }
 
   const handleInputChange = (e) => {
     setMarkdownText(e.target.value);
@@ -45,16 +47,13 @@ function NotebookEditer() {
     }
   };
 
-  const [task, setTask] = useState("");
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-
   function onChange(e) {
     const { value, id } = e.target;
 
     if (id === "select-task") {
-      setTask(value);
+      setValue(value);
     }
+
     if (id === "start-date") {
       setStartDate(value);
       dispatch(
@@ -79,30 +78,26 @@ function NotebookEditer() {
     }
   }
 
-  // 利用 useEffect 來監聽變動的資料
   useEffect(() => {
     if (notebookList.length === 0) {
       setSubNotebooktitle(null);
-      setSubNotebookCreateTime(null);
+      // setSubNotebookCreateTime(null);
       setMarkdownText(null);
       setStartDate("2023-07-01");
       setEndDate("2023-07-01");
     } else {
-      // 監聽變動的子筆記標題
       setSubNotebooktitle(
         notebookList[displayNumberList.notebookId - 1].subNotebook[
           displayNumberList.subNotebookId - 1
         ].subtitle
       );
 
-      // 監聽變動的子筆記創建時間
       setSubNotebookCreateTime(
         notebookList[displayNumberList.notebookId - 1].subNotebook[
           displayNumberList.subNotebookId - 1
         ].subStart
       );
 
-      // 監聽變動的子筆記內容
       setMarkdownText(
         notebookList[displayNumberList.notebookId - 1].subNotebook[
           displayNumberList.subNotebookId - 1
@@ -181,7 +176,7 @@ function NotebookEditer() {
               </div>
             </div>
             <div className="flex items-end ">
-              {displayNotebook ? (
+              {toggleNotebookDisplay ? (
                 <button
                   className="btn w-[125px] bg-lightgray px-4 mt-[30px] h-[30px] md:h-[40px]"
                   onClick={displayToggle}
@@ -200,7 +195,7 @@ function NotebookEditer() {
           </div>
           <hr className="border-b-[0.1px] mt-[10px] lg:mb-5 border-gray" />
           <article className="px-2 pb-2 h-full">
-            {displayNotebook ? (
+            {toggleNotebookDisplay ? (
               <textarea
                 placeholder="貼上或輸入Markdown內容"
                 value={markdownText}

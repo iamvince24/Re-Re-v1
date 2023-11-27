@@ -1,11 +1,10 @@
 const notebookState = {
-  // 資料呈現前的 Loading 文字
   notebookList: [
     {
       id: 1,
       title: "Loading",
-      start: "2023-09-21",
-      end: "2023-10-25",
+      start: "2023-06-01",
+      end: "2023-11-30",
       subNotebook: [
         {
           subId: 1,
@@ -239,19 +238,41 @@ const notebookReducer = (state = notebookState, action) => {
         totaltaskDurations: action.payload,
       };
 
-    case "notebookList/setNotebookEndTime":
-      const newsetNotebookEndTime = state.notebookList.map((notebook) => {
+    // case "notebookList/setNotebookEndTime":
+    //   const newsetNotebookEndTime = state.notebookList.map((notebook) => {
+    //     if (notebook.id === action.payload.notebookId) {
+    //       return {
+    //         ...notebook,
+    //         end: action.payload.endtime,
+    //       };
+    //     }
+    //     return notebook;
+    //   });
+    //   return {
+    //     ...state,
+    //     notebookList: newsetNotebookEndTime,
+    //   };
+
+    case "notebookList/setNotebookTime":
+      const newsetNotebookTime = state.notebookList.map((notebook) => {
         if (notebook.id === action.payload.notebookId) {
-          return {
-            ...notebook,
-            end: action.payload.endtime,
-          };
+          if (action.payload.timeType === "end") {
+            return {
+              ...notebook,
+              end: action.payload.time,
+            };
+          } else if (action.payload.timeType === "start") {
+            return {
+              ...notebook,
+              start: action.payload.time,
+            };
+          }
         }
         return notebook;
       });
       return {
         ...state,
-        notebookList: newsetNotebookEndTime,
+        notebookList: newsetNotebookTime,
       };
 
     case "loginstatus/toggleloginstatus":

@@ -154,12 +154,23 @@ export const addTotalNotebooksDurations = (array) => {
   };
 };
 
-export const setNotebookEndTime = (notebookId, endtime) => {
+// export const setNotebookEndTime = (notebookId, endtime) => {
+//   return {
+//     type: "notebookList/setNotebookEndTime",
+//     payload: {
+//       notebookId: notebookId,
+//       endtime: endtime,
+//     },
+//   };
+// };
+
+export const setNotebookTime = (notebookId, time, timeType) => {
   return {
-    type: "notebookList/setNotebookEndTime",
+    type: "notebookList/setNotebookTime",
     payload: {
       notebookId: notebookId,
-      endtime: endtime,
+      time: time,
+      timeType: timeType,
     },
   };
 };

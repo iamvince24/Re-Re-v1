@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { client } from "../../../../utils/utilities.js";
-
-import Chart from "../../ganttchartChart/components/ChartGuild.jsx";
-import Settings from "../../ganttchartSettings/components/SettingsGuild.jsx";
-import AddTaskDuration from "../../ganttchartSettings/components/AddTaskDuration.jsx";
-import TimeRange from "../../ganttchartSettings/components/TimeRange.jsx";
-import Tasks from "../../ganttchartChart/components/Tasks.jsx";
-import TimeTable from "../../ganttchartChart/components/TimeTable.jsx";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { addtotalnotebooks } from "../../../../redux/actions.js";
-import { addTotalNotebooksDurations } from "../../../../redux/actions.js";
+import {
+  addtotalnotebooks,
+  addTotalNotebooksDurations,
+} from "../../../../redux/actions.js";
+
+import { client } from "../../../../utils/utilities.js";
+
+import Chart from "../../ganttchartChart/components/ChartGuild.jsx";
+import Tasks from "../../ganttchartChart/components/Tasks.jsx";
+import TimeTable from "../../ganttchartChart/components/TimeTable.jsx";
+
+import Settings from "../../ganttchartSettings/components/SettingsGuild.jsx";
+import AddTaskDuration from "../../ganttchartSettings/components/AddTaskDuration.jsx";
+import TimeRange from "../../ganttchartSettings/components/TimeRange.jsx";
 
 function GanttChart(props) {
   const notebookList = useSelector((state) => state.notebookList);
@@ -19,6 +23,10 @@ function GanttChart(props) {
   const totaltaskDurationsArray = useSelector(
     (state) => state.totaltaskDurations
   );
+
+  const [tasks, setTasks] = useState(null);
+  const [taskDurations, setTaskDurations] = useState(null);
+  const [timeRange, setTimeRange] = useState(getNotebookTimeRange());
 
   const dispatch = useDispatch();
 
@@ -56,10 +64,6 @@ function GanttChart(props) {
     return TimeRange;
   }
 
-  const [tasks, setTasks] = useState(null);
-  const [taskDurations, setTaskDurations] = useState(null);
-  const [timeRange, setTimeRange] = useState(getNotebookTimeRange());
-
   useEffect(() => {
     client("data.json").then(
       (data) => {
@@ -74,9 +78,7 @@ function GanttChart(props) {
 
   useEffect(() => {
     let count = 0;
-
     let notebookarray = [];
-
     let notebookdurationsarray = [];
 
     for (let i = 0; i < notebookList?.length; i++) {

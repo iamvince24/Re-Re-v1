@@ -5,12 +5,10 @@ import React, {
   useMemo,
   useCallback,
 } from "react";
+
+import { useNavigate } from "react-router-dom";
+
 import { useSelector, useDispatch } from "react-redux";
-
-import Notebook from "./Notebook";
-import ToogleButton from "../../../components/button/ToogleButton";
-
-import { getCurrentDateTime } from "../../../utils/utilities";
 
 import {
   addNotebook,
@@ -19,10 +17,13 @@ import {
   fetchNotebookList,
 } from "../../../redux/actions";
 
+import Notebook from "./Notebook";
+import ToogleButton from "../../../components/button/ToogleButton";
+
+import { getCurrentDateTime } from "../../../utils/utilities";
+
 import { logout, auth } from "../../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
-
 import { database } from "../../../firebase";
 import { ref, get, set } from "firebase/database";
 
@@ -50,12 +51,11 @@ function NotebookGuildeline(props) {
     }));
   }, [notebookList]);
 
-  const handleLocalEdit = useCallback(
+  const handleUpdateDatabase = useCallback(
     (updatedNotebook) => {
       const action = updateNotebookList(updatedNotebook);
       dispatch(action);
 
-      // Update Firebase database
       const notebookListRef = ref(database, Uid);
 
       get(notebookListRef).then((snapshot) => {
@@ -72,11 +72,11 @@ function NotebookGuildeline(props) {
   );
 
   const handleToggleLoginStatus = useCallback(() => {
-    handleLocalEdit();
+    handleUpdateDatabase();
     logout();
     dispatch(toggleloginstatus(false));
     window.localStorage.removeItem("uid");
-  }, [dispatch, handleLocalEdit, logout]);
+  }, [dispatch, handleUpdateDatabase, logout]);
 
   useEffect(() => {
     const notebookListRef = ref(database, Uid);
@@ -99,10 +99,8 @@ function NotebookGuildeline(props) {
 
   window.addEventListener("beforeunload", function (event) {
     var confirmationMessage = "確定要離開嗎？";
-    // Standard for most browsers
     event.returnValue = confirmationMessage;
-    handleLocalEdit();
-    // For some older browsers
+    handleUpdateDatabase();
     return confirmationMessage;
   });
 
@@ -111,14 +109,14 @@ function NotebookGuildeline(props) {
       <section className="h-[1000px] w-full flex flex-col flex-1 justify-between items-center p-4 mb-2 md:col-span-3 lg:col-span-2 bg-bgGray bg-opacity-20 rounded-xl border-gray border-[1px] md:border-0 overflow-y-auto">
         <div className="w-full flex flex-col justify-start items-center">
           <div className="w-full flex justify-between items-center">
-            {props.toggle ? (
+            {props.toggleApplicationMode ? (
               <ToogleButton
-                onClick={() => props.setToggle(false)}
+                onClick={() => props.setToggleApplicationMode(false)}
                 label="To Notebook Mode"
               />
             ) : (
               <ToogleButton
-                onClick={() => props.setToggle(true)}
+                onClick={() => props.setToggleApplicationMode(true)}
                 label="To Timeline Mode"
               />
             )}

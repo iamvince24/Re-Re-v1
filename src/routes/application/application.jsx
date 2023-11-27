@@ -5,18 +5,16 @@ import NotebookEditer from "../../features/notebookEditing/components/NotebookEd
 import GanttChart from "../../features/ganttchart/ganttchartGuild/components/GanttChart";
 
 function Application() {
-  const [toggle, setToggle] = useState(true);
-  const [loaded, setLoaded] = useState(false);
+  const [toggleApplicationMode, setToggleApplicationMode] = useState(true);
 
   return (
     <Fragment>
       <section className="flex flex-col m-3 md:grid md:grid-cols-10 md:gap-4  lg:m-5 md:h-full">
         <NotebookGuildeline
-          toggle={toggle}
-          setToggle={setToggle}
-          setLoaded={setLoaded}
+          toggleApplicationMode={toggleApplicationMode}
+          setToggleApplicationMode={setToggleApplicationMode}
         />
-        {toggle ? <GanttChart /> : <NotebookEditer />}
+        {toggleApplicationMode ? <GanttChart /> : <NotebookEditer />}
       </section>
     </Fragment>
   );

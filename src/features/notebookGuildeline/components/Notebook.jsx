@@ -1,4 +1,21 @@
-import React, { Fragment, useState, useCallback, useMemo } from "react";
+import React, {
+  Fragment,
+  useState,
+  useCallback,
+  useMemo,
+  useEffect,
+} from "react";
+
+// 引入 Redux 相關函式
+import { useSelector, useDispatch } from "react-redux";
+
+import {
+  deleteNotebook,
+  setNotebooktitle,
+  addSubNotebook,
+  displayNumber,
+  setNotebookTime,
+} from "../../../redux/actions.js";
 
 import SubNotebook from "./SubtitleNotebook.jsx";
 
@@ -6,15 +23,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
 import { getCurrentDateTime } from "../../../utils/utilities.js";
-
-import { useSelector, useDispatch } from "react-redux";
-import {
-  deleteNotebook,
-  setNotebooktitle,
-  addSubNotebook,
-  displayNumber,
-  setNotebookEndTime,
-} from "../../../redux/actions.js";
 
 function Notebook({ notebookName, index, noetebookid }) {
   const notebookList = useSelector((state) => state.notebookList);
@@ -26,15 +34,20 @@ function Notebook({ notebookName, index, noetebookid }) {
   const [editedName, setEditedName] = useState(notebookName);
 
   const subnotebooklist = useMemo(() => {
-    return notebookList[index].subNotebook.map((subnotebook, subindex) => {
+    const currentNotebook = notebookList[index];
+    if (!currentNotebook || !currentNotebook.subNotebook) {
+      return [];
+    }
+    return currentNotebook.subNotebook.map((subnotebook, subindex) => {
       subnotebook.subId = subindex + 1;
       return subnotebook;
     });
-  }, [notebookList[index].subNotebook]);
+  }, [notebookList, index]);
 
   function handleSave() {
     setIsEditing(false);
-    setEditedName(editedName);
+    // setEditedName(editedName);
+    dispatch(setNotebooktitle(index + 1, editedName));
   }
 
   function handleditedName(e) {
@@ -42,18 +55,11 @@ function Notebook({ notebookName, index, noetebookid }) {
     dispatch(setNotebooktitle(index + 1, e.target.value));
   }
 
-  const handleDeleteNotebook = (index) => {
+  const handleDeleteNotebook = () => {
     dispatch(deleteNotebook(index));
-    // console.log(index);
-    let a = displayNumberList.notebookId - 1;
-    let b = displayNumberList.subNotebookId - 1;
 
-    if (a < 1) {
-      a = 1;
-    }
-    if (b < 1) {
-      b = 1;
-    }
+    const a = Math.max(displayNumberList.notebookId - 1, 1);
+    const b = Math.max(displayNumberList.subNotebookId - 1, 1);
 
     dispatch(displayNumber(a, b));
   };
@@ -68,6 +74,16 @@ function Notebook({ notebookName, index, noetebookid }) {
     );
   }, []);
 
+  const findMinDateString = useCallback((subNotebooks) => {
+    const notebookTimeArray = subNotebooks.map(
+      (subnotebook) => subnotebook.subStart
+    );
+    return notebookTimeArray.reduce(
+      (min, dateString) => (!min || dateString < min ? dateString : min),
+      null
+    );
+  }, []);
+
   const handleAddSubNotebook = () => {
     dispatch(
       addSubNotebook(
@@ -77,10 +93,14 @@ function Notebook({ notebookName, index, noetebookid }) {
         getCurrentDateTime()
       )
     );
-
-    const maxDateString = findMaxDateString(notebookList[index].subNotebook);
-    dispatch(setNotebookEndTime(index + 1, maxDateString));
   };
+
+  useEffect(() => {
+    const maxDateString = findMaxDateString(notebookList[index].subNotebook);
+    const minDateString = findMinDateString(notebookList[index].subNotebook);
+    dispatch(setNotebookTime(index + 1, maxDateString, "end"));
+    dispatch(setNotebookTime(index + 1, minDateString, "start"));
+  }, [notebookList[index].subNotebook]);
 
   return (
     <Fragment>

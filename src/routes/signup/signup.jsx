@@ -1,226 +1,54 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
-
+import { toggleloginstatus, fetchNotebookList } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 import {
   auth,
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from "../../firebase";
-
-import { useDispatch } from "react-redux";
-import { toggleloginstatus } from "../../redux/actions";
-
-// import { ref, get } from "firebase/database";
-// import { database } from "../../firebase";
-
-import { fetchNotebookList } from "../../redux/actions";
+import { useAuthState } from "react-firebase-hooks/auth";
+import notebookDataExample from "../../utils/notebookDataExample";
 
 function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
-
-  // const loginstatusState = useSelector((state) => state.loginstatus);
   const dispatch = useDispatch();
 
-  const register = () => {
-    if (!name) alert("Please enter name");
-    registerWithEmailAndPassword(name, email, password);
-    handleAddingNotebookData();
-    // dispatch(
-    //   fetchNotebookList([
-    //     {
-    //       id: 1,
-    //       title: "Data Structure",
-    //       start: "2023-09-21",
-    //       end: "2023-10-25",
-    //       subNotebook: [
-    //         {
-    //           subId: 1,
-    //           subtitle: "Ch5 Tree",
-    //           subStart: "2023-09-10",
-    //           subEnd: "2023-10-29",
-    //           content: `A tree is a non-linear abstract data type with a hierarchy-based structure. It consists of nodes (where the data is stored) that are connected via links. The tree data structure stems from a single node called a root node and has subtrees connected to the root.`,
-    //         },
-    //         {
-    //           subId: 2,
-    //           subtitle: "Ch6 Graph",
-    //           subStart: "2023-09-01",
-    //           subEnd: "2023-09-22",
-    //           content:
-    //             "A graph is an abstract data type (ADT) that consists of a set of objects that are connected to each other via links. These objects are called vertices and the links are called edges.",
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       id: 2,
-    //       title: "Algorithms",
-    //       start: "2023-07-05",
-    //       end: "2023-09-20",
-    //       subNotebook: [
-    //         {
-    //           subId: 1,
-    //           subtitle: "Dynamic Programming",
-    //           subStart: "2023-07-21",
-    //           subEnd: "2023-09-30",
-    //           content: `Dynamic programming approach is similar to divide and conquer in breaking down the problem into smaller and yet smaller possible sub-problems. But unlike, divide and conquer, these sub-problems are not solved independently. Rather, results of these smaller sub-problems are remembered and used for similar or overlapping sub-problems.`,
-    //         },
-    //       ],
-    //     },
-    //   ])
-    // );
-  };
+  const register = async () => {
+    try {
+      if (!name) {
+        throw new Error("Please enter name");
+      }
 
-  const handleAddingNotebookData = () => {
-    dispatch(
-      fetchNotebookList([
-        {
-          id: 1,
-          title: "Data Structures",
-          start: "2023-09-21",
-          end: "2023-10-25",
-          subNotebook: [
-            {
-              subId: 1,
-              subtitle: "Ch5 Tree",
-              subStart: "2023-09-10",
-              subEnd: "2023-10-29",
-              content: `A tree is a non-linear abstract data type with a hierarchy-based structure. It consists of nodes (where the data is stored) that are connected via links. The tree data structure stems from a single node called a root node and has subtrees connected to the root.`,
-            },
-            {
-              subId: 2,
-              subtitle: "Ch6 Graph",
-              subStart: "2023-09-01",
-              subEnd: "2023-09-22",
-              content:
-                "A graph is an abstract data type (ADT) that consists of a set of objects that are connected to each other via links. These objects are called vertices and the links are called edges.",
-            },
-          ],
-        },
-        {
-          id: 2,
-          title: "Algorithms",
-          start: "2023-07-05",
-          end: "2023-09-20",
-          subNotebook: [
-            {
-              subId: 1,
-              subtitle: "Dynamic Programming",
-              subStart: "2023-07-21",
-              subEnd: "2023-09-30",
-              content: `Dynamic programming approach is similar to divide and conquer in breaking down the problem into smaller and yet smaller possible sub-problems. But unlike, divide and conquer, these sub-problems are not solved independently. Rather, results of these smaller sub-problems are remembered and used for similar or overlapping sub-problems.`,
-            },
-          ],
-        },
-      ])
-    );
+      if (!email) {
+        throw new Error("Please enter email");
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        throw new Error("Please enter a valid email address");
+      }
+
+      if (password.length < 6) {
+        throw new Error("Password must be at least six characters");
+      }
+
+      await registerWithEmailAndPassword(name, email, password);
+    } catch (error) {
+      console.error("Registration error:", error.message);
+      alert(error.message);
+    }
   };
 
   useEffect(() => {
-    handleAddingNotebookData();
+    dispatch(fetchNotebookList(notebookDataExample));
     if (loading) return;
     if (user) {
-      // const UId = user.uid;
-      // const notebookListRef = ref(database, `${UId}`); // 使用 ref 方法
-
-      // dispatch(
-      //   fetchNotebookList([
-      //     {
-      //       id: 1,
-      //       title: "Data Structure",
-      //       start: "2023-09-21",
-      //       end: "2023-10-25",
-      //       subNotebook: [
-      //         {
-      //           subId: 1,
-      //           subtitle: "Ch5 Tree",
-      //           subStart: "2023-09-10",
-      //           subEnd: "2023-10-29",
-      //           content: `A tree is a non-linear abstract data type with a hierarchy-based structure. It consists of nodes (where the data is stored) that are connected via links. The tree data structure stems from a single node called a root node and has subtrees connected to the root.`,
-      //         },
-      //         {
-      //           subId: 2,
-      //           subtitle: "Ch6 Graph",
-      //           subStart: "2023-09-01",
-      //           subEnd: "2023-09-22",
-      //           content:
-      //             "A graph is an abstract data type (ADT) that consists of a set of objects that are connected to each other via links. These objects are called vertices and the links are called edges.",
-      //         },
-      //       ],
-      //     },
-      //     {
-      //       id: 2,
-      //       title: "Algorithms",
-      //       start: "2023-07-05",
-      //       end: "2023-09-20",
-      //       subNotebook: [
-      //         {
-      //           subId: 1,
-      //           subtitle: "Dynamic Programming",
-      //           subStart: "2023-07-21",
-      //           subEnd: "2023-09-30",
-      //           content: `Dynamic programming approach is similar to divide and conquer in breaking down the problem into smaller and yet smaller possible sub-problems. But unlike, divide and conquer, these sub-problems are not solved independently. Rather, results of these smaller sub-problems are remembered and used for similar or overlapping sub-problems.`,
-      //         },
-      //       ],
-      //     },
-      //   ])
-      // );
-
-      // get(notebookListRef).then((snapshot) => {
-      //   const data = snapshot.val();
-
-      //   if (data) {
-      //     dispatch(fetchNotebookList(data));
-      //   } else {
-      //     dispatch(
-      //       fetchNotebookList([
-      //         {
-      //           id: 1,
-      //           title: "Data Structure",
-      //           start: "2023-09-21",
-      //           end: "2023-10-25",
-      //           subNotebook: [
-      //             {
-      //               subId: 1,
-      //               subtitle: "Ch5 Tree",
-      //               subStart: "2023-09-10",
-      //               subEnd: "2023-10-29",
-      //               content: `A tree is a non-linear abstract data type with a hierarchy-based structure. It consists of nodes (where the data is stored) that are connected via links. The tree data structure stems from a single node called a root node and has subtrees connected to the root.`,
-      //             },
-      //             {
-      //               subId: 2,
-      //               subtitle: "Ch6 Graph",
-      //               subStart: "2023-09-01",
-      //               subEnd: "2023-09-22",
-      //               content:
-      //                 "A graph is an abstract data type (ADT) that consists of a set of objects that are connected to each other via links. These objects are called vertices and the links are called edges.",
-      //             },
-      //           ],
-      //         },
-      //         {
-      //           id: 2,
-      //           title: "Algorithms",
-      //           start: "2023-07-05",
-      //           end: "2023-09-20",
-      //           subNotebook: [
-      //             {
-      //               subId: 1,
-      //               subtitle: "Dynamic Programming",
-      //               subStart: "2023-07-21",
-      //               subEnd: "2023-09-30",
-      //               content: `Dynamic programming approach is similar to divide and conquer in breaking down the problem into smaller and yet smaller possible sub-problems. But unlike, divide and conquer, these sub-problems are not solved independently. Rather, results of these smaller sub-problems are remembered and used for similar or overlapping sub-problems.`,
-      //             },
-      //           ],
-      //         },
-      //       ])
-      //     );
-      //   }
-      // });
       window.localStorage.setItem("uid", user.uid);
-
       dispatch(toggleloginstatus(true));
       navigate("/application");
     }
@@ -263,7 +91,7 @@ function SignUp() {
             </button>
             <p className="h5tag m-[15px]">or</p>
             <button className="btn" onClick={signInWithGoogle}>
-              透過 Google 帳戶繼續進行操作
+              Continue with Google
             </button>
             <div className="h5tag mt-[20px] mb-[20px]">
               Already have an account?{" "}
